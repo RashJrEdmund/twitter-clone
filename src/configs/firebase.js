@@ -6,12 +6,12 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBJh8q35iVGfNs1t8fYvVo-6pRpwj0-xWw",
-  authDomain: "twitter-clone-bee59.firebaseapp.com",
-  projectId: "twitter-clone-bee59",
-  storageBucket: "twitter-clone-bee59.appspot.com",
-  messagingSenderId: "1084395777033",
-  appId: "1:1084395777033:web:6bb55005afa39b93069cd8",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDER,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
 };
 
 // Initialize Firebase
