@@ -25,3 +25,15 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+button {
+  border: none;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
