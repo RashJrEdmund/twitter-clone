@@ -7,9 +7,10 @@ type Props = {
   text: string;
   color?: string;
   link?: string;
+  icon?: Element;
 };
 
-export function HeaderTag({ text, color }: Props) {
+function HeaderTag({ text, color }: Props) {
   const StyledHeader = styled.h2`
     color: ${color || "#f5f5f5"};
     font-size: 20px;
@@ -20,7 +21,7 @@ export function HeaderTag({ text, color }: Props) {
   return <StyledHeader>{text}</StyledHeader>;
 }
 
-export function LinkTag({ text, link }: Props) {
+ function LinkTag({ text, link }: Props) {
   const StyledLinkTag = styled.h5`
     color: #808080;
     width: fit-content;
@@ -40,4 +41,19 @@ export function LinkTag({ text, link }: Props) {
   const navigate = () => link && window.open(link);
 
   return <StyledLinkTag onClick={navigate}>{text}</StyledLinkTag>;
+}
+
+function PTag({ text }: Props) {
+  const StyledLinkTag = styled.p`
+    color: #fff;
+    width: fit-content;
+  `;
+
+  return <StyledLinkTag>{text}</StyledLinkTag>;
+}
+
+export {
+    HeaderTag,
+    LinkTag,
+    PTag
 }

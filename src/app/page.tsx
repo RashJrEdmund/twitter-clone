@@ -1,4 +1,4 @@
-import { LinkTag, HeaderTag } from "@/components/atoms/Atoms"
+import { LinkTag, HeaderTag, PTag } from "@/components/atoms/Atoms"
 
 type Props = {}
 
