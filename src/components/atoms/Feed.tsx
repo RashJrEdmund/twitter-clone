@@ -1,4 +1,4 @@
-import { SparklesIcon } from "@heroicons/react/24/outline";
+import { SparklesIcon } from "@heroicons/react/outline";
 type Props = {};
 
 export default function Feed({}: Props) {
