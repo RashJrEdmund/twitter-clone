@@ -9,7 +9,7 @@ export default function Home({ newsResults, randomUsersResults }) {
       </Head>
 
       <main className="flex min-h-screen mx-auto">
-        <div>Hey dasfdsf</div>
+        <div>Hey dasfsdsf</div>
       </main>
     </div>
   );
