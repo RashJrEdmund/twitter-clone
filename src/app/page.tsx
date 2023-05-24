@@ -1,15 +1,17 @@
-import { LinkTag, HeaderTag, PTag } from "@/components/atoms/Atoms"
+import Footer from "@/components/Footer/Footer";
 
-type Props = {}
+type Props = {};
 
 export default function page({}: Props) {
+  const loggedIn = false;
   return (
-    <div className='App'>
+    <div className="App">
       {/* <Sidebar /> */}
 
       {/* <Feed /> */}
 
       {/* <Widget /> */}
+      {!loggedIn && <Footer />}
     </div>
-  )
+  );
 }
