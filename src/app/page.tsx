@@ -1,15 +1,13 @@
-import React from 'react'
+import Feed from "@/components/atoms/Feed";
 
-type Props = {}
 
-export default function page({}: Props) {
+type Props = {};
+export default function Home({}: Props) {
   return (
-    <div className='App'>
+    <div className="flex min-h-screen max-w-7xl mx-auto">
       {/* <Sidebar /> */}
-
-      {/* <Feed /> */}
-
+      <Feed />
       {/* <Widget /> */}
     </div>
-  )
+  );
 }
