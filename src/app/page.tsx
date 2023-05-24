@@ -1,10 +1,13 @@
-import Feed from "@/atoms/Feed";
+import Feed from "@/components/atoms/Feed";
 
 
-export default function Home() {
+type Props = {};
+export default function Home({}: Props) {
   return (
-    <main className="flex  flex-col items-center ">
-     <Feed/>
-    </main>
-  )
+    <div className="flex min-h-screen max-w-7xl mx-auto">
+      {/* <Sidebar /> */}
+      <Feed />
+      {/* <Widget /> */}
+    </div>
+  );
 }
