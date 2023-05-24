@@ -1,4 +1,4 @@
-import React from 'react'
+import { LinkTag, HeaderTag } from "@/components/atoms/Atoms"
 
 type Props = {}
 
