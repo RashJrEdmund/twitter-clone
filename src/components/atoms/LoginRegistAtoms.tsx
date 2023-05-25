@@ -3,7 +3,7 @@
 import styled from "@emotion/styled";
 
 import { FaTwitter } from "react-icons/fa";
-import { RxCross2 } from "react-icons/rx";
+import { RxCross1 } from "react-icons/rx";
 
 interface StyledProps {
   color?: string;
@@ -43,10 +43,12 @@ export const SignButtons = styled.button<StyledProps>`
   padding: ${({ padd = "5px 20px" }) => padd};
   cursor: pointer;
   transition: 0.3s opacity;
-  max-width: 360px;
+  max-width: var(--Styled-btn-max-width);
 
   &:hover {
-    opacity: 0.7;
+    background: ${({ bg = "#fff" }) => {
+      return bg === "#fff" ? "#00000011" : "#000000d1";
+    }};
   }
 
   @media only screen and (max-width: 650px) {
@@ -63,8 +65,7 @@ export const SignInput = styled.input<StyledProps>`
   border-radius: 4px;
   padding: 10px;
   transition: 0.3s opacity;
-  max-width: 360px;
-  margin: 10px 0;
+  max-width:var(--Styled-btn-max-width);
 `;
 
 export const StyledPTag = styled.p<StyledProps>`
@@ -82,21 +83,22 @@ export const Overlay = styled.div<StyledProps>`
   z-index: ${({ index = "2" }) => index};
 `;
 
-export const StyledTwitterIcon = styled(FaTwitter)`
+export const StyledTwitterIcon = styled(FaTwitter)<StyledProps>`
   color: #198ad5;
-  font-size: ${({ size = "40px" }) => size};
+  font-size: ${({ size = "37px" }) => size};
+  margin: 0 0 20px;
 `;
 
-export const CancelBtn = styled(RxCross2)``
-
-export const CloseIcon = styled.span`
+export const CancelBtn = styled(RxCross1)<StyledProps>`
   position: absolute;
   top: 0;
   left: 0;
   margin: 10px;
   border: 1px solid transparent;
+  color: ${({ color = "#000" }) => color};
+  font-size: ${({ size = "35px" }) => size};
   border-radius: 100%;
-  padding: 10px 15px;
+  padding: 7px;
   cursor: pointer;
 
   &:hover {

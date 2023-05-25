@@ -5,11 +5,12 @@ import {
   SignInput,
   StyledHeader,
   Overlay,
-  CloseIcon,
+  CancelBtn,
   StyledTwitterIcon,
 } from "../atoms/LoginRegistAtoms";
 import AnchorTag from "../atoms/AnchorTag";
 import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
+import { StrikedText } from "../molecules/Molecules";
 
 type Props = {};
 
@@ -19,7 +20,7 @@ export default function Login({}: Props) {
       <Overlay />
 
       <div className="container">
-        <CloseIcon>x</CloseIcon>
+        <CancelBtn />
 
         <StyledTwitterIcon />
 
@@ -27,22 +28,26 @@ export default function Login({}: Props) {
           Sing in to Twitter
         </StyledHeader>
 
-        <SignButtons padd="10px 70px" fill={true} weight="300">
+        <SignButtons padd="9px 70px" fill={true} weight="300">
           Sign in with Google
         </SignButtons>
-        <SignButtons padd="10px 70px" fill={true}>
+        <SignButtons padd="9px 70px" fill={true}>
           Sign in with Apple
         </SignButtons>
 
-        <AnchorTag>or</AnchorTag>
+        <StrikedText>
+          <hr />
+          or
+          <hr />
+        </StrikedText>
 
         <SignInput placeholder="Phone, email address or username" />
 
-        <SignButtons color="#fff" bg="#000" padd="10px 70px" fill={true}>
+        <SignButtons color="#fff" bg="#000" padd="9px 70px" fill={true}>
           Next
         </SignButtons>
 
-        <SignButtons padd="10px 70px" fill={true}>
+        <SignButtons padd="9px 70px" fill={true}>
           Forgot password?
         </SignButtons>
 

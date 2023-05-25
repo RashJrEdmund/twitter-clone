@@ -4,10 +4,12 @@ import {
   SignButtons,
   StyledHeader,
   Overlay,
-  CloseIcon,
+  CancelBtn,
+  StyledTwitterIcon,
 } from "../atoms/LoginRegistAtoms";
 import AnchorTag from "../atoms/AnchorTag";
 import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
+import { StrikedText } from "../molecules/Molecules";
 
 type Props = {};
 
@@ -17,24 +19,28 @@ export default function Signup({}: Props) {
       <Overlay />
 
       <div className="container">
-        <CloseIcon>x</CloseIcon>
-        <StyledHeader color="#198ad5" weight="600" size="30px" margin="0 0 20px">
-          bird
-        </StyledHeader>
+        <CancelBtn />
+
+        <StyledTwitterIcon />
+
         <StyledHeader color="#000" weight="600" size="30px">
           Join Twitter today
         </StyledHeader>
 
-        <SignButtons padd="10px 70px" fill={true} weight="300">
+        <SignButtons padd="9px 70px" fill={true} weight="300">
           Sign up with Google
         </SignButtons>
-        <SignButtons padd="10px 70px" fill={true}>
+        <SignButtons padd="9px 70px" fill={true}>
           Sign up with Apple
         </SignButtons>
 
-        <AnchorTag>or</AnchorTag>
+        <StrikedText>
+          <hr />
+          or
+          <hr />
+        </StrikedText>
 
-        <SignButtons color="#fff" bg="#000" padd="10px 70px" fill={true}>
+        <SignButtons color="#fff" bg="#000" padd="9px 70px" fill={true}>
           Create account
         </SignButtons>
 
@@ -42,8 +48,7 @@ export default function Signup({}: Props) {
           <AnchorTag>By signing up, you agree to the</AnchorTag>{" "}
           <AnchorTag link={true}>Terms of Service</AnchorTag>{" "}
           <AnchorTag>and</AnchorTag>{" "}
-          <AnchorTag link={true}>Privacy Policy,</AnchorTag>
-          {" "}
+          <AnchorTag link={true}>Privacy Policy,</AnchorTag>{" "}
           <AnchorTag>including</AnchorTag>{" "}
           <AnchorTag link={true}>Cookie Use.</AnchorTag>
         </div>

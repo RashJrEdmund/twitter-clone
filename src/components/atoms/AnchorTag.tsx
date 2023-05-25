@@ -46,5 +46,4 @@ const AnchorTag = styled.a<AnchorTagProps>`
   ${creatHoverEffect}
 `;
 
-
 export default AnchorTag;

@@ -23,21 +23,21 @@ const StyledSingIn_Login = styled.div<StyledProps>`
     text-align: center;
     background-color: #fff;
     gap: 15px;
-    width: min(100vw, 650px);
+    width: min(100vw, 590px);
     min-height: min(90vh, 600px);
 
     .policy_links {
       display: flex;
       flex-flow: wrap row;
       width: 100%;
-      max-width: 360px;
+      max-width:var(--Styled-btn-max-width);
       gap: 5px;
     }
 
     .sign_links {
       margin: 20px 0 0;
       width: 100%;
-      max-width: 360px;
+      max-width: var(--Styled-btn-max-width);
       display: flex;
       align-items: flex-start;
       gap: 5px;
