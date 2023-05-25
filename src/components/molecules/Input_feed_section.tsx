@@ -6,7 +6,7 @@ export default function Input_feed_section({}: Props) {
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-3">
       <img
-        src="https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-jumbo-v4.jpg?quality=75&auto=webp"
+        src="https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
         alt="tell"
         className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer"
       />
