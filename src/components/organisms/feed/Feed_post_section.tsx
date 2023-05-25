@@ -1,11 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   ChartBarIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
-  EllipsisHorizontalIcon,
   HeartIcon,
   ShareIcon,
   TrashIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/outline";
+import { ChatIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
+
 import React from "react";
 
 type Props = { post: any };
@@ -42,7 +43,7 @@ export default function Feed_post_section({ post }: Props) {
               </div>
 
               {/* dot icon */}
-              <EllipsisHorizontalIcon className="h-10 hoverEffect cursor-pointer hover:bg-sky-100 hover:text-sky-500 p-2 rounded-full w-10" />
+              <DotsHorizontalIcon className="h-10 hoverEffect cursor-pointer hover:bg-sky-100 hover:text-sky-500 p-2 rounded-full w-10" />
             </div>
 
             {/* post text */}
@@ -55,7 +56,7 @@ export default function Feed_post_section({ post }: Props) {
             )}
             {/* icons */}
             <div className="flex items-center justify-between text-gray-500 p-2">
-              <ChatBubbleOvalLeftEllipsisIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
+              <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
               <TrashIcon className="h-9 w-9 hoverEffect  p-2  hover:bg-red-100 hover:text-red-500 rounded-full" />
               <HeartIcon className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 hover:text-red-500 rounded-full" />
               <ShareIcon className="h-9 w-9 hoverEffect p-2  hover:bg-sky-100 hover:text-sky-500 rounded-full" />
