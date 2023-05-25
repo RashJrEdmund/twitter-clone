@@ -3,7 +3,7 @@
 import React from "react";
 import {
   FooterHeader,
-  FooterButtons,
+  SignButtons,
   StyledPTag,
 } from "../atoms/LoginRegistAtoms";
 
@@ -20,10 +20,10 @@ export default function Footer({}: Props) {
       </div>
 
       <div className="footer_btns">
-        <FooterButtons>Log in</FooterButtons>
-        <FooterButtons bg="#f5f5f5" color="#000">
-          Sign up
-        </FooterButtons>
+        <SignButtons bg="none" color="#fff">
+          Log in
+        </SignButtons>
+        <SignButtons>Sign up</SignButtons>
       </div>
     </StyledFooter>
   );

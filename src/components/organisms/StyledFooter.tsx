@@ -10,7 +10,7 @@ export const StyledFooter = styled.div`
   bottom: 0;
   width: 100%;
   height: fit-content;
-  min-height: 100px;
+  min-height: 80px;
   gap: 300px;
   display: flex;
   align-items: center;
