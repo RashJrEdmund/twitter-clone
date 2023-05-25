@@ -12,7 +12,7 @@ type Props = { post: any };
 
 export default function Feed_post_section({ post }: Props) {
   return (
-    <div className="flex p-3 cursor-pointer border-b border-gray-200">
+    <div className="flex p-3 cursor-pointer border-b border-gray-200 hoverEffect hover:bg-gray-50">
       {/* user image */}
       {post.userImg && (
         <img
