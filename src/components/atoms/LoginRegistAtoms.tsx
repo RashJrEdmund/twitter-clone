@@ -2,24 +2,32 @@
 
 import styled from "@emotion/styled";
 
+import { FaTwitter } from "react-icons/fa";
+import { RxCross2 } from "react-icons/rx";
+
 interface StyledProps {
-    color?: string;
-    padd?: string;
-    bg?: string;
-    fill?: boolean;
+  color?: string;
+  padd?: string;
+  bg?: string;
+  fill?: boolean;
+  weight?: string | number;
+  size?: string;
+  index?: string;
+  margin?: string;
 }
 
 export const StyledHeader = styled.h2<StyledProps>`
   color: ${({ color = "#f5f5f5" }) => color};
-  font-size: 20px;
-  font-weight: 800;
+  font-size: ${({ size = "20px" }) => size};
+  font-weight: ${({ weight = "600" }) => weight};
   width: 100%;
+  margin: ${({ margin = "unset" }) => margin};
 `;
 
 export const FooterHeader = styled.h2<StyledProps>`
   color: ${({ color = "#f5f5f5" }) => color};
   font-size: 22px;
-  font-weight: 800;
+  font-weight: ${({ weight = "800" }) => weight};
   width: 100%;
   white-space: nowrap;
 `;
@@ -29,12 +37,13 @@ export const SignButtons = styled.button<StyledProps>`
   color: ${({ color = "#000" }) => color};
   width: ${({ fill = false }) => (fill ? "100%" : "fit-content")};
   white-space: nowrap;
-  border: 1px solid #f5f5f599;
+  border: 1px solid #80808054;
   border-radius: 20px;
-  font-weight: 600;
+  font-weight: ${({ weight = "600" }) => weight};
   padding: ${({ padd = "5px 20px" }) => padd};
   cursor: pointer;
   transition: 0.3s opacity;
+  max-width: 360px;
 
   &:hover {
     opacity: 0.7;
@@ -45,7 +54,52 @@ export const SignButtons = styled.button<StyledProps>`
   }
 `;
 
+export const SignInput = styled.input<StyledProps>`
+  background: ${({ bg = "#fff" }) => bg};
+  color: ${({ color = "#000" }) => color};
+  width: 100%;
+  height: 60px;
+  border: 1px solid #80808054;
+  border-radius: 4px;
+  padding: 10px;
+  transition: 0.3s opacity;
+  max-width: 360px;
+  margin: 10px 0;
+`;
+
 export const StyledPTag = styled.p<StyledProps>`
   color: #fff;
   width: fit-content;
+`;
+
+export const Overlay = styled.div<StyledProps>`
+  background-color: #00000089;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: ${({ index = "2" }) => index};
+`;
+
+export const StyledTwitterIcon = styled(FaTwitter)`
+  color: #198ad5;
+  font-size: ${({ size = "40px" }) => size};
+`;
+
+export const CancelBtn = styled(RxCross2)``
+
+export const CloseIcon = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px;
+  border: 1px solid transparent;
+  border-radius: 100%;
+  padding: 10px 15px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #00000022;
+  }
 `;

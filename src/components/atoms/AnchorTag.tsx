@@ -10,7 +10,7 @@ enum AnchorColor {
 
 interface AnchorTagProps {
   link?: AnchorColor | boolean;
-  gray_link?: AnchorColor| boolean;
+  gray_link?: AnchorColor | boolean;
 }
 
 function creatHoverEffect(props: AnchorTagProps) {
@@ -41,8 +41,10 @@ function generateColor({ link }: AnchorTagProps) {
 const AnchorTag = styled.a<AnchorTagProps>`
   width: fit-content;
   font-size: 14px;
+  margin: "5px 0";
   ${generateColor}
   ${creatHoverEffect}
 `;
+
 
 export default AnchorTag;
