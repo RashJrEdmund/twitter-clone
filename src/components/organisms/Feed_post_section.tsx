@@ -14,11 +14,13 @@ export default function Feed_post_section({ post }: Props) {
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
       {/* user image */}
-      <img
-        src={post.userImg}
-        alt="user_image"
-        className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer mr-4"
-      />
+      {post.userImg && (
+        <img
+          src={post.userImg}
+          alt="user_image"
+          className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer mr-4"
+        />
+      )}
       <div className="">
         {/* right- side */}
         <div>
@@ -48,7 +50,9 @@ export default function Feed_post_section({ post }: Props) {
               {post.text}
             </p>
             {/* post image */}
-            <img className="rounded-2xl mr-2" src={post.img} alt="img" />
+            {post.img && (
+              <img className="rounded-2xl mr-2" src={post.img} alt="img" />
+            )}
             {/* icons */}
             <div className="flex items-center justify-between text-gray-500 p-2">
               <ChatBubbleOvalLeftEllipsisIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
