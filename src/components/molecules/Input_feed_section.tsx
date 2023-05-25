@@ -1,5 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 type Props = {};
 import { FaceSmileIcon, GifIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
 
 export default function Input_feed_section({}: Props) {
   return (
@@ -23,8 +25,10 @@ export default function Input_feed_section({}: Props) {
             <PhotoIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
             <GifIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
             <FaceSmileIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
+{/*             <PhotographIcon className="h-10 w-10 hoverEffect  cursor-pointer p-2 text-sky-500 hover:text-sky-100" />
+            <EmojiHappyIcon className="h-10 w-10 hoverEffect cursor-pointer p-2 text-sky-500 hover:text-sky-100" /> */}
           </div>
-          <button className=" w-20 h-7 bg-blue-400 p-2 text-white rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-95">
+          <button className=" w-20 h-10 bg-blue-400 p-2 text-white rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-95">
             Tweet
           </button>
         </div>

@@ -1,6 +1,6 @@
 import Feed_header from "@/components/atoms/feed-header";
 import Input_feed_section from "@/components/molecules/Input_feed_section";
-import Feed_post_section from "@/components/organisms/Feed_post_section";
+import Feed_post_section from "./Feed_post_section";
 
 type Props = {};
 
