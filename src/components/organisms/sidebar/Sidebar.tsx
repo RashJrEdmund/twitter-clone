@@ -11,6 +11,7 @@ import {
   HashtagIcon,
   InboxIcon,
   UserIcon,
+  CheckCircleIcon
 } from "@heroicons/react/outline";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect } from "react";
@@ -37,8 +38,9 @@ export default function Sidebar() {
         <SidebarMenuItem text="Explore" Icon={HashtagIcon}   />
             <SidebarMenuItem text="Notifications" Icon={BellIcon}  />
             <SidebarMenuItem text="Messages" Icon={InboxIcon} />
-            <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
             <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
+            <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
+            <SidebarMenuItem text="Twitter Blue" Icon={CheckCircleIcon} />
             <SidebarMenuItem text="Profile" Icon={UserIcon} />
             <SidebarMenuItem text="More" Icon={DotsCircleHorizontalIcon}/>
       </div>
@@ -53,9 +55,11 @@ export default function Sidebar() {
 
           {/* Mini-Profile */}
 
-          <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
+          <div className="hoverEffect mb-7  text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
             <Image
-              src={""}
+              src={"https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"}
+              width="50"
+              height="50"
               alt="user-img"
               className="h-10 w-10 rounded-full xl:mr-2"
             />
