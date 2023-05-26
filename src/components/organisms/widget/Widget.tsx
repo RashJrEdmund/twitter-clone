@@ -1,11 +1,11 @@
-
-import { SearchIcon } from "@heroicons/react/outline/"; 
+import { SearchIcon } from "@heroicons/react/outline/";
 import News from "../news/News";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-type Props = { };
+import AuthGaurd from "@/HOC/AuthGaurd";
+type Props = {};
 
-export default function Widget({ }: Props) {
+function Widget({}: Props) {
   return (
     <div className="xl:w-[500px] hidden lg:inline ml-10 space-y-5">
       <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50">
@@ -22,24 +22,25 @@ export default function Widget({ }: Props) {
       <div className="text-gray-700 space-y-3 bg-gray-100 rounded-xl pt-2 w-[90%] xl:w-[75%]">
         <h4 className="font-bold text-xl px-4">Trends for you</h4>
         <AnimatePresence>
-        <News header={"Trending in Cameroon"} trend={"#Clint"} tweetCount={"998K"} />
+          <News
+            header={"Trending in Cameroon"}
+            trend={"#Clint"}
+            tweetCount={"998K"}
+          />
         </AnimatePresence>
-        <button
-          className="text-blue-300 pl-4 pb-3 hover:text-blue-400"
-        >
+        <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
           Show more
         </button>
       </div>
       <div className="sticky top-16 text-gray-700 space-y-3 bg-gray-100 pt-2 rounded-xl w-[90%] xl:w-[75%]">
         <h4 className="font-bold text-xl px-4">Who to follow</h4>
-        <AnimatePresence>
-        </AnimatePresence>
-        <button
-          className="text-blue-300 pl-4 pb-3 hover:text-blue-400"
-        >
+        <AnimatePresence></AnimatePresence>
+        <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
           Show more
         </button>
       </div>
     </div>
   );
 }
+
+export default AuthGaurd(Widget);

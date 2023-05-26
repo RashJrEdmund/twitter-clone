@@ -11,14 +11,14 @@ import {
   HashtagIcon,
   InboxIcon,
   UserIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
 } from "@heroicons/react/outline";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect } from "react";
+import AuthGaurd from "@/HOC/AuthGaurd";
 
-
-export default function Sidebar() {
-    const currentUser: string = 'clint';
+function Sidebar() {
+  const currentUser: string = "clint";
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
       {/* Twitter Logo */}
@@ -34,15 +34,15 @@ export default function Sidebar() {
       {/* Menu */}
 
       <div className="mt-4 mb-2.5 xl:items-start">
-        <SidebarMenuItem text="Home" Icon={HomeIcon} active  />
-        <SidebarMenuItem text="Explore" Icon={HashtagIcon}   />
-            <SidebarMenuItem text="Notifications" Icon={BellIcon}  />
-            <SidebarMenuItem text="Messages" Icon={InboxIcon} />
-            <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
-            <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
-            <SidebarMenuItem text="Twitter Blue" Icon={CheckCircleIcon} />
-            <SidebarMenuItem text="Profile" Icon={UserIcon} />
-            <SidebarMenuItem text="More" Icon={DotsCircleHorizontalIcon}/>
+        <SidebarMenuItem text="Home" Icon={HomeIcon} active />
+        <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
+        <SidebarMenuItem text="Notifications" Icon={BellIcon} />
+        <SidebarMenuItem text="Messages" Icon={InboxIcon} />
+        <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
+        <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
+        <SidebarMenuItem text="Twitter Blue" Icon={CheckCircleIcon} />
+        <SidebarMenuItem text="Profile" Icon={UserIcon} />
+        <SidebarMenuItem text="More" Icon={DotsCircleHorizontalIcon} />
       </div>
 
       {/* Button */}
@@ -57,7 +57,9 @@ export default function Sidebar() {
 
           <div className="hoverEffect mb-7  text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
             <Image
-              src={"https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"}
+              src={
+                "https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
+              }
               width="50"
               height="50"
               alt="user-img"
@@ -71,12 +73,12 @@ export default function Sidebar() {
           </div>
         </>
       ) : (
-        <button
-          className="bg-blue-400 text-white rounded-full w-36 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline"
-        >
+        <button className="bg-blue-400 text-white rounded-full w-36 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
           Sign in
         </button>
       )}
     </div>
   );
 }
+
+export default AuthGaurd(Sidebar)

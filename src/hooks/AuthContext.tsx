@@ -7,15 +7,25 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth } from "../config/firebase";
 
-const AuthContext = createContext();
+import { auth } from "../configs/firebase";
+
+type formType = {
+  email: string;
+  password: string;
+};
+
+type reactType = {
+  children: React.ReactNode;
+};
 
 export const useAuth = () => useContext(AuthContext);
 
-export function AuthContextProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
+const AuthContext = createContext({});
+
+export function AuthContextProvider({ children }: reactType) {
+  const [currentUser, setCurrentUser] = useState<any>();
+  useEffect((): any => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user)
         setCurrentUser({
@@ -28,12 +38,12 @@ export function AuthContextProvider({ children }) {
     return () => unsubscribe;
   }, []);
 
-  const signup = async (formData) => {
+  const signup = async (formData: formType) => {
     const { email, password } = formData;
     await createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const LoginWithEmailPassword = async (formData) => {
+  const LoginWithEmailPassword = async (formData: formType) => {
     const { email, password } = formData;
 
     if (!email || !password) {
@@ -44,8 +54,6 @@ export function AuthContextProvider({ children }) {
     await signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
         console.log("email password signup res", res);
-        // displayAlert('signed in');
-        // navigate('/', { replace: true });
       })
       .catch((e) => console.log(e)); // takes 3 parameters auth eamil and password
   };

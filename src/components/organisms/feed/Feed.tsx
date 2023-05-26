@@ -1,10 +1,11 @@
 import Feed_header from "@/components/atoms/feed-header";
 import Input_feed_section from "@/components/molecules/Input_feed_section";
 import Feed_post_section from "./Feed_post_section";
+import AuthGaurd from "@/HOC/AuthGaurd";
 
 type Props = {};
 
-export default function Feed_section({}: Props) {
+function Feed_section({}: Props) {
   const posts = [
     {
       id: "1",
@@ -47,3 +48,5 @@ export default function Feed_section({}: Props) {
     </div>
   );
 }
+
+export default AuthGaurd(Feed_section);
