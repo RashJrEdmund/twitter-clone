@@ -6,14 +6,14 @@ interface StyledProps {
   index?: string;
 }
 
-const StyledSingIn_Login = styled.div<StyledProps>`
+const StyledSingIn_Login = styled.dialog<StyledProps>`
   color: #000;
 
   .container {
     border-radius: 20px;
     padding: 20px 50px 100px;
     position: fixed;
-    z-index: ${({ index = "2" }) => index};
+    z-index: ${({ index = "53" }) => index};
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -30,7 +30,7 @@ const StyledSingIn_Login = styled.div<StyledProps>`
       display: flex;
       flex-flow: wrap row;
       width: 100%;
-      max-width:var(--Styled-btn-max-width);
+      max-width: var(--Styled-btn-max-width);
       gap: 5px;
     }
 

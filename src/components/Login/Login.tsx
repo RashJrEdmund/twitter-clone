@@ -1,24 +1,29 @@
 import React from "react";
 
 import {
-  SignButtons,
   SignInput,
   StyledHeader,
   Overlay,
   CancelBtn,
   StyledTwitterIcon,
 } from "../atoms/LoginRegistAtoms";
+import SignButton from "../atoms/SignButton";
+
 import AnchorTag from "../atoms/AnchorTag";
 import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
 import { StrikedText } from "../molecules/Molecules";
 
+import { FcGoogle } from "react-icons/fc";
+
 type Props = {
-  closeLog: any;
+  open: boolean;
+  closeLog: () => void;
+  signupModal: () => void;
 };
 
-export default function Login({ closeLog }: Props) {
+export default function Login({ open, closeLog, signupModal }: Props) {
   return (
-    <StyledSingIn_Login>
+    <StyledSingIn_Login open={open}>
       <Overlay />
 
       <div className="container">
@@ -30,12 +35,12 @@ export default function Login({ closeLog }: Props) {
           Sing in to Twitter
         </StyledHeader>
 
-        <SignButtons padd="9px 70px" fill={true} weight="300">
-          Sign in with Google
-        </SignButtons>
-        <SignButtons padd="9px 70px" fill={true}>
+        <SignButton padd="9px 70px" fill={true} weight="300">
+          <FcGoogle className="icon" /> Sign in with Google
+        </SignButton>
+        <SignButton padd="9px 70px" fill={true}>
           Sign in with Apple
-        </SignButtons>
+        </SignButton>
 
         <StrikedText>
           <hr />
@@ -45,17 +50,19 @@ export default function Login({ closeLog }: Props) {
 
         <SignInput placeholder="Phone, email address or username" />
 
-        <SignButtons color="#fff" bg="#000" padd="9px 70px" fill={true}>
+        <SignButton color="#fff" bg="#000" padd="9px 70px" fill={true}>
           Next
-        </SignButtons>
+        </SignButton>
 
-        <SignButtons padd="9px 70px" fill={true}>
+        <SignButton padd="9px 70px" fill={true}>
           Forgot password?
-        </SignButtons>
+        </SignButton>
 
         <div className="sign_links">
           <AnchorTag>Don&apos;t have an accont? </AnchorTag>{" "}
-          <AnchorTag link={true}>Sign up</AnchorTag>
+          <AnchorTag link={true} onClick={signupModal}>
+            Sign up
+          </AnchorTag>
         </div>
       </div>
     </StyledSingIn_Login>

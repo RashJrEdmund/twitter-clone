@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 import { FaTwitter } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
+import { FcGoogle } from "react-icons/fc";
 
 interface StyledProps {
   color?: string;
@@ -32,30 +33,6 @@ export const FooterHeader = styled.h2<StyledProps>`
   white-space: nowrap;
 `;
 
-export const SignButtons = styled.button<StyledProps>`
-  background: ${({ bg = "#fff" }) => bg};
-  color: ${({ color = "#000" }) => color};
-  width: ${({ fill = false }) => (fill ? "100%" : "fit-content")};
-  white-space: nowrap;
-  border: 1px solid #80808054;
-  border-radius: 20px;
-  font-weight: ${({ weight = "600" }) => weight};
-  padding: ${({ padd = "5px 20px" }) => padd};
-  cursor: pointer;
-  transition: 0.3s opacity;
-  max-width: var(--Styled-btn-max-width);
-
-  &:hover {
-    background: ${({ bg = "#fff" }) => {
-      return bg === "#fff" ? "#00000011" : "#000000d1";
-    }};
-  }
-
-  @media only screen and (max-width: 650px) {
-    width: 100%;
-  }
-`;
-
 export const SignInput = styled.input<StyledProps>`
   background: ${({ bg = "#fff" }) => bg};
   color: ${({ color = "#000" }) => color};
@@ -65,7 +42,7 @@ export const SignInput = styled.input<StyledProps>`
   border-radius: 4px;
   padding: 10px;
   transition: 0.3s opacity;
-  max-width:var(--Styled-btn-max-width);
+  max-width: var(--Styled-btn-max-width);
 `;
 
 export const StyledPTag = styled.p<StyledProps>`
@@ -80,7 +57,7 @@ export const Overlay = styled.div<StyledProps>`
   top: 0;
   width: 100vw;
   height: 100vh;
-  z-index: ${({ index = "2" }) => index};
+  z-index: ${({ index = "51" }) => index};
 `;
 
 export const StyledTwitterIcon = styled(FaTwitter)<StyledProps>`
@@ -104,4 +81,8 @@ export const CancelBtn = styled(RxCross1)<StyledProps>`
   &:hover {
     background-color: #00000022;
   }
+`;
+
+export const StyledGoogle = styled(FcGoogle)<StyledProps>`
+  background-color: red;
 `;

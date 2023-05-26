@@ -1,11 +1,8 @@
 "use client";
 
 import React from "react";
-import {
-  FooterHeader,
-  SignButtons,
-  StyledPTag,
-} from "../../atoms/LoginRegistAtoms";
+import { FooterHeader, StyledPTag } from "../../atoms/LoginRegistAtoms";
+import SignButton from "../../atoms/SignButton";
 
 import { StyledFooter } from "./StyledFooter";
 import Login from "@/components/Login/Login";
@@ -19,16 +16,20 @@ export default function Footer({}: Props) {
     signup: false,
   });
 
-  const loging = () => setLog({ signup: false, login: true });
+  const loginModal = () => setLog({ signup: false, login: true });
 
-  const signup = () => setLog({ login: false, signup: true });
+  const signupModal = () => setLog({ login: false, signup: true });
 
   const closeLog = () => setLog({ login: false, signup: false });
 
   return (
     <>
-      {log.login && <Login closeLog={closeLog} />}
-      {log.signup && <Signup closeLog={closeLog} />}
+      {log.login && (
+        <Login open={log.login} signupModal={signupModal} closeLog={closeLog} />
+      )}
+      {log.signup && (
+        <Signup open={log.signup} closeLog={closeLog} loginModal={loginModal} />
+      )}
 
       <StyledFooter>
         <div className="footer_text">
@@ -37,10 +38,10 @@ export default function Footer({}: Props) {
         </div>
 
         <div className="footer_btns">
-          <SignButtons bg="none" color="#fff" onClick={loging}>
+          <SignButton bg="none" color="#fff" onClick={loginModal}>
             Log in
-          </SignButtons>
-          <SignButtons onClick={signup}>Sign up</SignButtons>
+          </SignButton>
+          <SignButton onClick={signupModal}>Sign up</SignButton>
         </div>
       </StyledFooter>
     </>

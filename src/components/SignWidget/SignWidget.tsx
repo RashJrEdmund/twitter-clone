@@ -1,6 +1,7 @@
 import React from "react";
 import StyledSignWidget from "../organisms/StyledSignWidget";
-import { StyledHeader, SignButtons } from "../atoms/LoginRegistAtoms";
+import { StyledHeader } from "../atoms/LoginRegistAtoms";
+import SignButton from "../atoms/SignButton";
 import AnchorTag from "../atoms/AnchorTag";
 
 type Props = {};
@@ -11,15 +12,15 @@ export default function SignWidget({}: Props) {
       <div className="inner_container">
         <StyledHeader>New to Twitter?</StyledHeader>
         <AnchorTag>sign up now to get your own personalized timeline</AnchorTag>
-        <SignButtons padd="10px 70px" fill={true}>
+        <SignButton padd="10px 70px" fill={true}>
           Sign up with Google
-        </SignButtons>
-        <SignButtons padd="10px 70px" fill={true}>
+        </SignButton>
+        <SignButton padd="10px 70px" fill={true}>
           Sign up with Apple
-        </SignButtons>
-        <SignButtons padd="10px 70px" fill={true}>
+        </SignButton>
+        <SignButton padd="10px 70px" fill={true}>
           Create account
-        </SignButtons>
+        </SignButton>
 
         <div className="sign_links">
           <AnchorTag>By signing up, you agree to the</AnchorTag>{" "}
