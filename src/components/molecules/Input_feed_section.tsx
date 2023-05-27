@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 type Props = {};
+// import { FaceSmileIcon, GifIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
+import { GiftIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 
 export default function Input_feed_section({}: Props) {
@@ -24,6 +26,10 @@ export default function Input_feed_section({}: Props) {
         </div>
         <div className="w-full flex justify-between pt-2.5">
           <div className="flex">
+            <PhotographIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
+            <GiftIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
+            <EmojiHappyIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
+{/*             <PhotographIcon className="h-10 w-10 hoverEffect  cursor-pointer p-2 text-sky-500 hover:text-sky-100" />
      <PhotoIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
             <GifIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
             <FaceSmileIcon className="h-10 w-10  cursor-pointer p-2 text-sky-500 hover:text-sky-500 hover:bg-sky-100 rounded-full" />
