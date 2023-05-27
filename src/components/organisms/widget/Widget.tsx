@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import AuthGaurd from "@/HOC/AuthGaurd";
 import SignWidget from "@/components/SignWidget/SignWidget";
 
-interface Props {
+type Props = {
   userInfo: any;
 }
 
