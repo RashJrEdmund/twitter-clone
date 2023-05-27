@@ -1,13 +1,21 @@
+"use client";
+
 export const updateSession: (data: any) => void = (data) => {
-  sessionStorage.setItem("userInfo", JSON.stringify(data));
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem("userInfo", JSON.stringify(data));
+  }
 };
 
 export const readFromSession: () => any = () => {
-  const info = sessionStorage.getItem("userInfo");
+  if (typeof window !== "undefined") {
+    const info = sessionStorage.getItem("userInfo");
 
-  return info ? JSON.parse(info) : null;
+    return info ? JSON.parse(info) : null;
+  }
 };
 
 export const clearSession: () => void = () => {
-  sessionStorage.removeItem("userInfo");
+  if (typeof window !== "undefined") {
+    sessionStorage.removeItem("userInfo");
+  }
 };
