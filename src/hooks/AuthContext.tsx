@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-constructed-context-values */
+"use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 
-import { auth } from "../configs/firebase";
+import { auth, googleProvider } from "../configs/firebase";
 
 type formType = {
   email: string;
@@ -19,26 +22,34 @@ type reactType = {
   children: React.ReactNode;
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth: any = () => useContext(AuthContext);
 
 const AuthContext = createContext({});
 
 export function AuthContextProvider({ children }: reactType) {
-  const [currentUser, setCurrentUser] = useState<any>();
+  const [userInfo, setUserInfo] = useState<any>();
+  const [data, setData] = useState<boolean>(false);
+
   useEffect((): any => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user)
-        setCurrentUser({
+    const unsubscribe = onAuthStateChanged(auth, (user: any) => {
+      if (user && !data) {
+        setData(true);
+        setUserInfo({
           uid: user.uid,
           email: user.email,
           displayname: user.displayName,
+          phoneNumber: user.phoneNumber,
+          photoURL: user.photoURL,
+          emailVerified: user.emailVerified /* boolean */,
+          // ...user,
         });
+      }
     });
 
     return () => unsubscribe;
-  }, []);
+  }, [data]);
 
-  const signup = async (formData: formType) => {
+  const signupWithEmailPassword = async (formData: formType) => {
     const { email, password } = formData;
     await createUserWithEmailAndPassword(auth, email, password);
   };
@@ -58,14 +69,33 @@ export function AuthContextProvider({ children }: reactType) {
       .catch((e) => console.log(e)); // takes 3 parameters auth eamil and password
   };
 
+  const googleLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider)
+        .then((res) => {
+          console.log("google signup res", res);
+        })
+        .catch((e) => console.log(e)); // takes 2 parameters auth and googleProvider
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const logout = async () => {
     await signOut(auth);
-    setCurrentUser(null);
+    setUserInfo(null);
   };
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, LoginWithEmailPassword, signup, logout }}
+      value={{
+        userInfo,
+        data,
+        LoginWithEmailPassword,
+        signupWithEmailPassword,
+        googleLogin,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

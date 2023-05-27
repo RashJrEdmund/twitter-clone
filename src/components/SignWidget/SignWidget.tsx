@@ -1,6 +1,10 @@
 import React from "react";
-import StyledSignWidget from "../organisms/StyledSignWidget";
-import { StyledHeader } from "../atoms/LoginRegistAtoms";
+import StyledSignWidget from "../molecules/StyledSignWidget";
+import {
+  StyledApple,
+  StyledGoogle,
+  StyledHeader,
+} from "../atoms/LoginRegistAtoms";
 import SignButton from "../atoms/SignButton";
 import AnchorTag from "../atoms/AnchorTag";
 
@@ -10,12 +14,18 @@ export default function SignWidget({}: Props) {
   return (
     <StyledSignWidget>
       <div className="inner_container">
-        <StyledHeader>New to Twitter?</StyledHeader>
+        <StyledHeader color="#000">New to Twitter?</StyledHeader>
         <AnchorTag>sign up now to get your own personalized timeline</AnchorTag>
         <SignButton padd="10px 70px" fill={true}>
+          <span>
+            <StyledGoogle />
+          </span>
           Sign up with Google
         </SignButton>
         <SignButton padd="10px 70px" fill={true}>
+          <span>
+            <StyledApple />
+          </span>
           Sign up with Apple
         </SignButton>
         <SignButton padd="10px 70px" fill={true}>

@@ -9,7 +9,12 @@ import { AuthContextProvider, useAuth } from "@/hooks/AuthContext";
 type Props = {};
 
 export default function Home({}: Props) {
-  const { currentUser } = useAuth();
+  const { userInfo } = useAuth();
+
+  console.log("this userInfo in HOme", userInfo);
+  {
+    /* this is a custom context provider */
+  }
 
   return (
     <AuthContextProvider>
@@ -20,7 +25,7 @@ export default function Home({}: Props) {
         <Feed_section />
         <Widget />
 
-        {!currentUser && <Footer />}
+       <Footer />
       </div>
     </AuthContextProvider>
   );

@@ -4,17 +4,17 @@ import { useAuth } from "../hooks/AuthContext";
 
 const AuthGaurd = (Component: any) => {
   return function Gaurd(props: any) {
-    const { currentUser } = useAuth();
+    const { userInfo } = useAuth();
 
     const [user, setUser] = React.useState(null);
 
     React.useEffect(() => {
-      if (currentUser) setUser(currentUser);
-    }, [currentUser]);
+      if (userInfo) setUser(userInfo);
+    }, [userInfo]);
 
-    console.log("this currentUser in Hoc", currentUser);
+    console.log("this user in Hoc", user);
 
-    return    <Component {...props} currentUser={user} />
+    return <Component {...props} userInfo={user} />;
   };
 };
 

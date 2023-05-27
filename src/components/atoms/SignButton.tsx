@@ -6,6 +6,7 @@ interface StyledProps {
   color?: string;
   padd?: string;
   bg?: string;
+  borderColor?: string;
   fill?: boolean;
   weight?: string | number;
 }
@@ -15,16 +16,17 @@ const SignButton = styled.button<StyledProps>`
   color: ${({ color = "#000" }) => color};
   width: ${({ fill = false }) => (fill ? "100%" : "fit-content")};
   white-space: nowrap;
-  border: 1px solid #80808054;
+  border: ${({ borderColor = "#80808044" }) => `1px solid ${borderColor}`};
   border-radius: 20px;
   font-weight: ${({ weight = "600" }) => weight};
   padding: ${({ padd = "5px 20px" }) => padd};
   cursor: pointer;
   transition: 0.3s opacity;
   max-width: var(--Styled-btn-max-width);
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
 
   &:hover {
     background: ${({ bg = "#fff" }) => {

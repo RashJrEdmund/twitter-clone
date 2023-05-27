@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 
-import { FaTwitter } from "react-icons/fa";
+import { FaTwitter, FaApple } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
 
@@ -60,6 +60,8 @@ export const Overlay = styled.div<StyledProps>`
   z-index: ${({ index = "51" }) => index};
 `;
 
+/* THIS SECTIONS IS FOR ICON */
+
 export const StyledTwitterIcon = styled(FaTwitter)<StyledProps>`
   color: #198ad5;
   font-size: ${({ size = "37px" }) => size};
@@ -84,5 +86,13 @@ export const CancelBtn = styled(RxCross1)<StyledProps>`
 `;
 
 export const StyledGoogle = styled(FcGoogle)<StyledProps>`
-  background-color: red;
+  font-size: 25px;
+  padding: 0;
+  margin: 0;
+`;
+
+export const StyledApple = styled(FaApple)<StyledProps>`
+  font-size: 25px;
+  padding: 0;
+  margin: 0;
 `;

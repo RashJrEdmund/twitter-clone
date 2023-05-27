@@ -6,14 +6,15 @@ import {
   Overlay,
   CancelBtn,
   StyledTwitterIcon,
+  StyledGoogle,
+  StyledApple,
 } from "../atoms/LoginRegistAtoms";
 import SignButton from "../atoms/SignButton";
 
 import AnchorTag from "../atoms/AnchorTag";
 import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
 import { StrikedText } from "../molecules/Molecules";
-
-import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "@/hooks/AuthContext";
 
 type Props = {
   open: boolean;
@@ -22,6 +23,14 @@ type Props = {
 };
 
 export default function Login({ open, closeLog, signupModal }: Props) {
+  const {
+    userInfo,
+    LoginWithEmailPassword,
+    signupWithEmailPassword,
+    googleLogin,
+    logout,
+  } = useAuth();
+
   return (
     <StyledSingIn_Login open={open}>
       <Overlay />
@@ -35,10 +44,21 @@ export default function Login({ open, closeLog, signupModal }: Props) {
           Sing in to Twitter
         </StyledHeader>
 
-        <SignButton padd="9px 70px" fill={true} weight="300">
-          <FcGoogle className="icon" /> Sign in with Google
+        <SignButton
+          padd="9px 70px"
+          fill={true}
+          weight="300"
+          onClick={googleLogin}
+        >
+          <span>
+            <StyledGoogle />
+          </span>
+          Sign in with Google
         </SignButton>
         <SignButton padd="9px 70px" fill={true}>
+          <span>
+            <StyledApple />
+          </span>
           Sign in with Apple
         </SignButton>
 

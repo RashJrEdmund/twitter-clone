@@ -7,10 +7,11 @@ import SignButton from "../../atoms/SignButton";
 import { StyledFooter } from "./StyledFooter";
 import Login from "@/components/Login/Login";
 import Signup from "@/components/Signup/Signup";
+import AuthGaurd from "@/HOC/AuthGaurd";
 
-type Props = {};
+type Props = { userInfo: any };
 
-export default function Footer({}: Props) {
+function Footer({ userInfo }: Props) {
   const [log, setLog] = React.useState<{ login: boolean; signup: boolean }>({
     login: false,
     signup: false,
@@ -24,26 +25,45 @@ export default function Footer({}: Props) {
 
   return (
     <>
-      {log.login && (
-        <Login open={log.login} signupModal={signupModal} closeLog={closeLog} />
-      )}
-      {log.signup && (
-        <Signup open={log.signup} closeLog={closeLog} loginModal={loginModal} />
-      )}
+      {!userInfo && (
+        <>
+          {log.login && (
+            <Login
+              open={log.login}
+              signupModal={signupModal}
+              closeLog={closeLog}
+            />
+          )}
+          {log.signup && (
+            <Signup
+              open={log.signup}
+              closeLog={closeLog}
+              loginModal={loginModal}
+            />
+          )}
 
-      <StyledFooter>
-        <div className="footer_text">
-          <FooterHeader>Don&apos;t miss what&apos;s happening</FooterHeader>
-          <StyledPTag>People on Twitter are the first to know</StyledPTag>
-        </div>
+          <StyledFooter>
+            <div className="footer_text">
+              <FooterHeader>Don&apos;t miss what&apos;s happening</FooterHeader>
+              <StyledPTag>People on Twitter are the first to know</StyledPTag>
+            </div>
 
-        <div className="footer_btns">
-          <SignButton bg="none" color="#fff" onClick={loginModal}>
-            Log in
-          </SignButton>
-          <SignButton onClick={signupModal}>Sign up</SignButton>
-        </div>
-      </StyledFooter>
+            <div className="footer_btns">
+              <SignButton
+                bg="none"
+                color="#fff"
+                borderColor="#ffffff44"
+                onClick={loginModal}
+              >
+                Log in
+              </SignButton>
+              <SignButton onClick={signupModal}>Sign up</SignButton>
+            </div>
+          </StyledFooter>
+        </>
+      )}
     </>
   );
 }
+
+export default AuthGaurd(Footer);

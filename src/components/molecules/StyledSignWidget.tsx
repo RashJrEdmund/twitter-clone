@@ -8,6 +8,9 @@ const StyledSignWidget = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin: 1rem 0 0 2rem;
+  position: sticky;
+  top: 0;
 
   .inner_container {
     display: flex;
@@ -15,7 +18,7 @@ const StyledSignWidget = styled.div`
     gap: 15px;
     padding: 10px 15px;
     width: 100%;
-    border: 1px solid #808080;
+    border: 1px solid #00000022;
     border-radius: 10px;
   }
 
