@@ -12,8 +12,6 @@ const AuthGaurd = (Component: any) => {
       if (userInfo) setUser(userInfo);
     }, [userInfo]);
 
-    console.log("this user in Hoc", user);
-
     return <Component {...props} userInfo={user} />;
   };
 };

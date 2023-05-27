@@ -17,7 +17,9 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect } from "react";
 import AuthGaurd from "@/HOC/AuthGaurd";
 
-function Sidebar({ userInfo }) {
+type Props = { userInfo: any };
+
+function Sidebar({ userInfo }: Props) {
   const currentUser: string = "clint";
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">

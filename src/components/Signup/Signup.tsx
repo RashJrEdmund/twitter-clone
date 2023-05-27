@@ -27,7 +27,6 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
     LoginWithEmailPassword,
     signupWithEmailPassword,
     googleLogin,
-    logout,
   } = useAuth();
 
   return (

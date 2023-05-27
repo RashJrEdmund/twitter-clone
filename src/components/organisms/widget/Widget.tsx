@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AuthGaurd from "@/HOC/AuthGaurd";
 import SignWidget from "@/components/SignWidget/SignWidget";
-type Props = {};
+
+interface Props {
+  userInfo: any;
+}
 
 function Widget({ userInfo }: Props) {
-  React.useEffect(() => {
-    console.log("this userinfo in widget", userInfo);
-  }, []);
   return (
     <>
       {userInfo ? (
