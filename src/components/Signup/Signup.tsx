@@ -44,7 +44,7 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
 
         <SignButton
           padd="9px 70px"
-          fill={true}
+          fill
           weight="300"
           onClick={googleLogin}
         >
@@ -53,7 +53,7 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
           </span>
           Sign up with Google
         </SignButton>
-        <SignButton padd="9px 70px" fill={true}>
+        <SignButton padd="9px 70px" fill>
           <span>
             <StyledApple />
           </span>
@@ -66,22 +66,22 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
           <hr />
         </StrikedText>
 
-        <SignButton color="#fff" bg="#000" padd="9px 70px" fill={true}>
+        <SignButton color="#fff" bg="#000" padd="9px 70px" fill>
           Create account
         </SignButton>
 
         <div className="policy_links">
           <AnchorTag>By signing up, you agree to the</AnchorTag>{" "}
-          <AnchorTag link={true}>Terms of Service</AnchorTag>{" "}
+          <AnchorTag link>Terms of Service</AnchorTag>{" "}
           <AnchorTag>and</AnchorTag>{" "}
-          <AnchorTag link={true}>Privacy Policy,</AnchorTag>{" "}
+          <AnchorTag link>Privacy Policy,</AnchorTag>{" "}
           <AnchorTag>including</AnchorTag>{" "}
-          <AnchorTag link={true}>Cookie Use.</AnchorTag>
+          <AnchorTag link>Cookie Use.</AnchorTag>
         </div>
 
         <div className="sign_links">
           <AnchorTag>Have an account already?</AnchorTag>{" "}
-          <AnchorTag link={true} onClick={loginModal}>
+          <AnchorTag link onClick={loginModal}>
             Log in
           </AnchorTag>
         </div>

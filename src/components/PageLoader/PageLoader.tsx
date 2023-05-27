@@ -8,7 +8,7 @@ export default function PageLoader() {
       <div className="loader-wrapper">
         <div className="loader1" />
         <p className="loader_title ">
-          <StyledTwitterIcon size="50px" />
+          <StyledTwitterIcon size="50px" loading/>
         </p>
       </div>
     </div>

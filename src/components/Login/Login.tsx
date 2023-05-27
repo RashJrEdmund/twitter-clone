@@ -46,7 +46,7 @@ export default function Login({ open, closeLog, signupModal }: Props) {
 
         <SignButton
           padd="9px 70px"
-          fill={true}
+          fill
           weight="300"
           onClick={googleLogin}
         >
@@ -55,7 +55,7 @@ export default function Login({ open, closeLog, signupModal }: Props) {
           </span>
           Sign in with Google
         </SignButton>
-        <SignButton padd="9px 70px" fill={true}>
+        <SignButton padd="9px 70px" fill>
           <span>
             <StyledApple />
           </span>
@@ -70,17 +70,17 @@ export default function Login({ open, closeLog, signupModal }: Props) {
 
         <SignInput placeholder="Phone, email address or username" />
 
-        <SignButton color="#fff" bg="#000" padd="9px 70px" fill={true}>
+        <SignButton color="#fff" bg="#000" padd="9px 70px" fill>
           Next
         </SignButton>
 
-        <SignButton padd="9px 70px" fill={true}>
+        <SignButton padd="9px 70px" fill>
           Forgot password?
         </SignButton>
 
         <div className="sign_links">
           <AnchorTag>Don&apos;t have an accont? </AnchorTag>{" "}
-          <AnchorTag link={true} onClick={signupModal}>
+          <AnchorTag link onClick={signupModal}>
             Sign up
           </AnchorTag>
         </div>
