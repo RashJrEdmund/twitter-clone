@@ -1,11 +1,12 @@
 import Feed_header from "@/components/atoms/feed-header";
 import Input_feed_section from "@/components/molecules/Input_feed_section";
 import Feed_post_section from "./Feed_post_section";
-import AuthGaurd from "@/HOC/AuthGaurd";
 
-type Props = {};
+type Props = { userInfo: any };
 
-function Feed_section({}: Props) {
+function Feed_section({ userInfo }: Props) {
+  console.log(userInfo);
+  
   const posts = [
     {
       id: "1",
@@ -39,14 +40,25 @@ function Feed_section({}: Props) {
     },
   ];
   return (
-    <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
-      <Feed_header />
-      <Input_feed_section />
-      {posts.map((post) => (
-        <Feed_post_section key={post.id} post={post} />
-      ))}
-    </div>
+    <>
+      {userInfo?.uid ? (
+        <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+          <Feed_header />
+          <Input_feed_section />
+          {posts.map((post) => (
+            <Feed_post_section key={post.id} post={post} />
+          ))}
+        </div>
+      ) : (
+        <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+          <Feed_header />
+          {posts.map((post) => (
+            <Feed_post_section key={post.id} post={post} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
-export default AuthGaurd(Feed_section);
+export default Feed_section;

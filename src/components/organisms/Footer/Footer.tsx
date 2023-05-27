@@ -7,7 +7,6 @@ import SignButton from "../../atoms/SignButton";
 import { StyledFooter } from "./StyledFooter";
 import Login from "@/components/Login/Login";
 import Signup from "@/components/Signup/Signup";
-import AuthGaurd from "@/HOC/AuthGaurd";
 
 type Props = { userInfo: any };
 
@@ -66,4 +65,4 @@ function Footer({ userInfo }: Props) {
   );
 }
 
-export default AuthGaurd(Footer);
+export default Footer;

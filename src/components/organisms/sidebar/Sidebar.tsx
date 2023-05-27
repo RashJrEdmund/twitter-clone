@@ -15,7 +15,6 @@ import {
 } from "@heroicons/react/outline";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect } from "react";
-import AuthGaurd from "@/HOC/AuthGaurd";
 
 type Props = { userInfo: any };
 
@@ -89,4 +88,4 @@ function Sidebar({ userInfo }: Props) {
   );
 }
 
-export default AuthGaurd(Sidebar);
+export default Sidebar;

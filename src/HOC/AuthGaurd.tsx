@@ -1,24 +1,38 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import { useAuth } from "../hooks/AuthContext";
-import { readFromSession, updateSession } from "@/services/utils";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/configs/firebase";
+import PageLoader from "@/components/PageLoader/PageLoader";
 
 const AuthGaurd = (Component: any) => {
   return function Gaurd(props: any) {
-    const { userInfo } = useAuth();
+    const [userInfo, setUserInfo] = React.useState<any>(false);
 
-    const sessionData = readFromSession();
+    React.useEffect((): any => {
+      const unsubscribe = onAuthStateChanged(auth, (user: any) => {
+        console.log(user, typeof user);
 
-    const [user, setUser] = React.useState(sessionData);
+        if (user) {
+          setUserInfo({
+            uid: user.uid,
+            email: user.email,
+            displayname: user.displayName,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified /* boolean */,
+            // ...user,
+          });
+        } else setUserInfo(null);
+      });
 
-    React.useEffect(() => {
-      if (userInfo) {
-        setUser(userInfo);
-        updateSession(userInfo);
-      }
-    }, [userInfo]);
+      return () => unsubscribe;
+    }, []);
 
-    return <Component {...props} userInfo={user} />;
+    return typeof userInfo !== "boolean" ? (
+      <Component {...props} userInfo={userInfo} />
+    ) : (
+      <PageLoader />
+    );
   };
 };
 
