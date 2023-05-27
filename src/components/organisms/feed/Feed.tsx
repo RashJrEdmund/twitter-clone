@@ -1,5 +1,7 @@
 import Feed_header from "@/components/atoms/feed-header";
+import BottomBarMobileView from "@/components/molecules/BottomBarMobileView";
 import Input_feed_section from "@/components/molecules/Input_feed_section";
+import TopbarMobileView from "@/components/molecules/TopbarMobileView";
 import Feed_post_section from "./Feed_post_section";
 
 type Props = {};
@@ -39,11 +41,13 @@ export default function Feed_section({}: Props) {
   ];
   return (
     <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+      <TopbarMobileView />
       <Feed_header />
       <Input_feed_section />
       {posts.map((post) => (
         <Feed_post_section key={post.id} post={post} />
       ))}
+      <BottomBarMobileView />
     </div>
-  );
+  )
 }
