@@ -33,11 +33,11 @@ export default function Feed_post_section({ post }: Props) {
                 <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
                   {post.name}
                 </h4>
-                <span className="text-sm sm:text-[15px]">
+                <span className="text-sm sm:text-[15px] text-gray-500">
                   {" "}
                   @{post.username} -{" "}
                 </span>
-                <span className="text-sm sm:text-[15px] hover:underline ">
+                <span className="text-sm sm:text-[15px] hover:underline text-gray-500">
                   {post.timestamp}
                 </span>
               </div>
