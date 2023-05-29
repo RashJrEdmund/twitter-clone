@@ -70,21 +70,15 @@ export function AuthContextProvider({ children }: reactType) {
   };
 
   const googleLogin = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider)
-        .then((res) => {
-          console.log("google signup res", res);
-        })
-        .catch((e) => console.log(e)); // takes 2 parameters auth and googleProvider
-    } catch (err) {
-      console.log(err);
-    }
+    await signInWithPopup(auth, googleProvider).catch((e) => console.log(e)); // takes 2 parameters auth and googleProvider
   };
 
   const logout = async () => {
     await signOut(auth);
     setUserInfo(null);
   };
+
+  // logout();
 
   return (
     <AuthContext.Provider

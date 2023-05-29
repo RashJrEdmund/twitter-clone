@@ -22,12 +22,7 @@ type Props = {
 };
 
 export default function Signup({ open, closeLog, loginModal }: Props) {
-  const {
-    userInfo,
-    LoginWithEmailPassword,
-    signupWithEmailPassword,
-    googleLogin,
-  } = useAuth();
+  const { googleLogin } = useAuth();
 
   return (
     <StyledSingIn_Login open={open}>
@@ -42,12 +37,7 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
           Join Twitter today
         </StyledHeader>
 
-        <SignButton
-          padd="9px 70px"
-          fill
-          weight="300"
-          onClick={googleLogin}
-        >
+        <SignButton padd="9px 70px" fill weight="300" onClick={googleLogin}>
           <span>
             <StyledGoogle />
           </span>
@@ -73,8 +63,7 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
         <div className="policy_links">
           <AnchorTag>By signing up, you agree to the</AnchorTag>{" "}
           <AnchorTag link>Terms of Service</AnchorTag>{" "}
-          <AnchorTag>and</AnchorTag>{" "}
-          <AnchorTag link>Privacy Policy,</AnchorTag>{" "}
+          <AnchorTag>and</AnchorTag> <AnchorTag link>Privacy Policy,</AnchorTag>{" "}
           <AnchorTag>including</AnchorTag>{" "}
           <AnchorTag link>Cookie Use.</AnchorTag>
         </div>

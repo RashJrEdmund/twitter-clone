@@ -10,7 +10,6 @@ const AuthGaurd = (Component: any) => {
 
     React.useEffect((): any => {
       const unsubscribe = onAuthStateChanged(auth, (user: any) => {
-        console.log(user, typeof user);
 
         if (user) {
           setUserInfo({

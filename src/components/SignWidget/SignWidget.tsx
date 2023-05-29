@@ -7,16 +7,19 @@ import {
 } from "../atoms/LoginRegistAtoms";
 import SignButton from "../atoms/SignButton";
 import AnchorTag from "../atoms/AnchorTag";
+import { useAuth } from "@/hooks/AuthContext";
 
 type Props = {};
 
 export default function SignWidget({}: Props) {
+  const { googleLogin } = useAuth();
+
   return (
     <StyledSignWidget>
       <div className="inner_container">
         <StyledHeader color="#000">New to Twitter?</StyledHeader>
         <AnchorTag>sign up now to get your own personalized timeline</AnchorTag>
-        <SignButton padd="10px 70px" fill>
+        <SignButton padd="10px 70px" fill onClick={googleLogin}>
           <span>
             <StyledGoogle />
           </span>
