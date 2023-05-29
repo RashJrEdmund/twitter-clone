@@ -5,9 +5,11 @@ import Input_feed_section from "@/components/molecules/Input_feed_section";
 import TopbarMobileView from "@/components/molecules/TopbarMobileView";
 import Feed_post_section from "./Feed_post_section";
 
-type Props = {};
+type Props = { userInfo: any };
 
-export default function Feed_section({ }: Props) {
+function Feed_section({ userInfo }: Props) {
+  console.log(userInfo);
+  
   const posts = [
     {
       id: "1",
@@ -53,3 +55,5 @@ export default function Feed_section({ }: Props) {
     </div>
   )
 }
+
+export default Feed_section;
