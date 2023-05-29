@@ -44,3 +44,19 @@ a {
   text-decoration: none;
   color: unset;
 }
+
+@media (max-width: 430px) { 
+  .newPostDiv,
+  .homeHeader {
+    display: none;
+  }
+}
+
+@media (min-width: 430px) { 
+  .newTweetMobile,
+  .topNavMobile,
+  .bottomNavMobile
+  {
+    display: none;
+  }
+ }

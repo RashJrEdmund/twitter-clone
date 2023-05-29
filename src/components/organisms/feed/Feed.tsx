@@ -1,4 +1,5 @@
 import Feed_header from "@/components/atoms/feed-header";
+import NewTweetMobile from "@/components/atoms/NewTweetMobile";
 import BottomBarMobileView from "@/components/molecules/BottomBarMobileView";
 import Input_feed_section from "@/components/molecules/Input_feed_section";
 import TopbarMobileView from "@/components/molecules/TopbarMobileView";
@@ -6,7 +7,7 @@ import Feed_post_section from "./Feed_post_section";
 
 type Props = {};
 
-export default function Feed_section({}: Props) {
+export default function Feed_section({ }: Props) {
   const posts = [
     {
       id: "1",
@@ -47,6 +48,7 @@ export default function Feed_section({}: Props) {
       {posts.map((post) => (
         <Feed_post_section key={post.id} post={post} />
       ))}
+      <NewTweetMobile />
       <BottomBarMobileView />
     </div>
   )

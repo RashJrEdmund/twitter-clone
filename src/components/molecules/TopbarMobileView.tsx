@@ -5,6 +5,7 @@ import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
 
 export default function TopbarMobileView({}: Props) {
   return (
+    <div className="topNavMobile">
     <div className="flex border-gray-200 p-3 space-x-3">
       <img
         src="https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
@@ -21,6 +22,7 @@ export default function TopbarMobileView({}: Props) {
           src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"
         ></Image>
       </div>
+    </div>
     </div>
   );
 }

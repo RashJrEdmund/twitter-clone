@@ -4,6 +4,7 @@ import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
 
 export default function Input_feed_section({}: Props) {
   return (
+    <div className="newPostDiv">
     <div className="flex border-b border-gray-200 p-3 space-x-3">
       <img
         src="https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
@@ -29,6 +30,7 @@ export default function Input_feed_section({}: Props) {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }
