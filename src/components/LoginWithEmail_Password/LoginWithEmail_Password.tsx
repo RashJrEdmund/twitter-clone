@@ -22,7 +22,7 @@ type Props = {
   signupModal: () => void;
 };
 
-export default function Login({ open, closeLog, signupModal }: Props) {
+export default function LoginWithEmail_Password({ open, closeLog, signupModal }: Props) {
   const { googleLogin } = useAuth();
 
   return (
@@ -35,32 +35,15 @@ export default function Login({ open, closeLog, signupModal }: Props) {
         <StyledTwitterIcon />
 
         <StyledHeader color="#000" weight="600" size="30px">
-          Sing in to Twitter
+          Enter your phone number or email address
         </StyledHeader>
 
-        <SignButton padd="9px 70px" fill weight="300" onClick={googleLogin}>
-          <span>
-            <StyledGoogle />
-          </span>
-          Sign in with Google
-        </SignButton>
-        <SignButton padd="9px 70px" fill>
-          <span>
-            <StyledApple />
-          </span>
-          Sign in with Apple
-        </SignButton>
-
-        <StrikedText>
-          <hr />
-          or
-          <hr />
-        </StrikedText>
-
+        <AnchorTag >userName: something.</AnchorTag>
+        
         <SignInput placeholder="Phone, email address or username" />
 
         <SignButton color="#fff" bg="#000" padd="9px 70px" fill>
-          Next
+          Login
         </SignButton>
 
         <SignButton padd="9px 70px" fill>

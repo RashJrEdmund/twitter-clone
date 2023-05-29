@@ -8,7 +8,7 @@ const StyledSignWidget = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin: 1rem 0 0 2rem;
+  margin: 1rem 0 0 min(1.3vw, 2rem);
   position: sticky;
   top: 0;
 
@@ -27,6 +27,10 @@ const StyledSignWidget = styled.div`
     display: flex;
     flex-flow: row wrap;
     column-gap: 15px;
+  }
+
+  @media only screen and (max-width: 1023px) {
+    display: none;
   }
 `;
 

@@ -15,6 +15,7 @@ interface StyledProps {
   size?: string;
   index?: string;
   margin?: string;
+  loading?: boolean;
 }
 
 export const StyledHeader = styled.h2<StyledProps>`
@@ -66,6 +67,23 @@ export const StyledTwitterIcon = styled(FaTwitter)<StyledProps>`
   color: #198ad5;
   font-size: ${({ size = "37px" }) => size};
   margin: 0 0 20px;
+
+  animation: ${({ loading }) => (loading ? "LoadingAnime" : "unset")};
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  @keyframes LoadingAnime {
+    0% {
+      color: #198ad5;
+    }
+    50% {
+      color: #198ad588;
+    }
+    100% {
+      color: #198ad5dd;
+    }
+  }
 `;
 
 export const CancelBtn = styled(RxCross1)<StyledProps>`
