@@ -11,9 +11,16 @@ import Signup from "@/components/Signup/Signup";
 type Props = { userInfo: any };
 
 function Footer({ userInfo }: Props) {
-  const [log, setLog] = React.useState<{ login: boolean; signup: boolean }>({
+  const [log, setLog] = React.useState<{
+    login: boolean;
+    signup: boolean;
+    emailPass?: boolean;
+    forgotPass?: boolean;
+  }>({
     login: false,
     signup: false,
+    emailPass: false,
+    forgotPass: false,
   });
 
   const loginModal = () => setLog({ signup: false, login: true });
