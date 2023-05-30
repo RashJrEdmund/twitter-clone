@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import { FaTwitter, FaApple } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
@@ -16,6 +17,8 @@ interface StyledProps {
   index?: string;
   margin?: string;
   loading?: boolean;
+  align?: string;
+  maxW?: boolean | string;
 }
 
 export const StyledHeader = styled.h2<StyledProps>`
@@ -24,6 +27,7 @@ export const StyledHeader = styled.h2<StyledProps>`
   font-weight: ${({ weight = "600" }) => weight};
   width: 100%;
   margin: ${({ margin = "unset" }) => margin};
+  text-align: ${({ align = "unset" }) => align};
 `;
 
 export const FooterHeader = styled.h2<StyledProps>`
@@ -43,7 +47,7 @@ export const SignInput = styled.input<StyledProps>`
   border-radius: 4px;
   padding: 10px;
   transition: 0.3s opacity;
-  max-width: var(--Styled-btn-max-width);
+  max-width: ${({ maxW = false }) => maxW || css`var(--Styled-btn-max-width)`};
 `;
 
 export const StyledPTag = styled.p<StyledProps>`

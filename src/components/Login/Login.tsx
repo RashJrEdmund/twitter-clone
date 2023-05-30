@@ -20,9 +20,15 @@ type Props = {
   open: boolean;
   closeLog: () => void;
   signupModal: () => void;
+  toEmailPass: () => void;
 };
 
-export default function Login({ open, closeLog, signupModal }: Props) {
+export default function Login({
+  open,
+  closeLog,
+  signupModal,
+  toEmailPass,
+}: Props) {
   const { googleLogin } = useAuth();
 
   return (
@@ -59,7 +65,13 @@ export default function Login({ open, closeLog, signupModal }: Props) {
 
         <SignInput placeholder="Phone, email address or username" />
 
-        <SignButton color="#fff" bg="#000" padd="9px 70px" fill>
+        <SignButton
+          color="#fff"
+          bg="#000"
+          padd="9px 70px"
+          fill
+          onClick={toEmailPass}
+        >
           Next
         </SignButton>
 

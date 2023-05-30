@@ -7,6 +7,7 @@ import SignButton from "../../atoms/SignButton";
 import { StyledFooter } from "./StyledFooter";
 import Login from "@/components/Login/Login";
 import Signup from "@/components/Signup/Signup";
+import LoginWithEmail_Password from "@/components/LoginWithEmail_Password/LoginWithEmail_Password";
 
 type Props = { userInfo: any };
 
@@ -14,7 +15,7 @@ function Footer({ userInfo }: Props) {
   const [log, setLog] = React.useState<{
     login: boolean;
     signup: boolean;
-    emailPass?: boolean;
+    emailPass: boolean;
     forgotPass?: boolean;
   }>({
     login: false,
@@ -23,11 +24,17 @@ function Footer({ userInfo }: Props) {
     forgotPass: false,
   });
 
-  const loginModal = () => setLog({ signup: false, login: true });
+  const loginModal = () =>
+    setLog({ signup: false, emailPass: false, login: true });
 
-  const signupModal = () => setLog({ login: false, signup: true });
+  const signupModal = () =>
+    setLog({ login: false, emailPass: false, signup: true });
 
-  const closeLog = () => setLog({ login: false, signup: false });
+  const closeLog = () =>
+    setLog({ login: false, signup: false, emailPass: false });
+
+  const toEmailPass = () =>
+    setLog({ login: false, signup: false, emailPass: true });
 
   return (
     <>
@@ -38,13 +45,23 @@ function Footer({ userInfo }: Props) {
               open={log.login}
               signupModal={signupModal}
               closeLog={closeLog}
+              toEmailPass={toEmailPass}
             />
           )}
+
           {log.signup && (
             <Signup
               open={log.signup}
               closeLog={closeLog}
               loginModal={loginModal}
+            />
+          )}
+
+          {log.emailPass && (
+            <LoginWithEmail_Password
+              open={log.emailPass}
+              closeLog={closeLog}
+              signupModal={signupModal}
             />
           )}
 

@@ -3,14 +3,16 @@ import React from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/configs/firebase";
 import PageLoader from "@/components/PageLoader/PageLoader";
+import useAlert from "@/hooks/UseAlert";
 
 const AuthGaurd = (Component: any) => {
   return function Gaurd(props: any) {
     const [userInfo, setUserInfo] = React.useState<any>(false);
 
+    const { AlertComponent, displayAlert, alertMsg } = useAlert();
+
     React.useEffect((): any => {
       const unsubscribe = onAuthStateChanged(auth, (user: any) => {
-
         if (user) {
           setUserInfo({
             uid: user.uid,
@@ -28,7 +30,10 @@ const AuthGaurd = (Component: any) => {
     }, []);
 
     return typeof userInfo !== "boolean" ? (
-      <Component {...props} userInfo={userInfo} />
+      <>
+        {alertMsg.show && <AlertComponent />}
+        <Component {...props} userInfo={userInfo} displayAlert={displayAlert} />
+      </>
     ) : (
       <PageLoader />
     );

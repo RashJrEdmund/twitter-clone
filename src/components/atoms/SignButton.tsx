@@ -1,14 +1,17 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 interface StyledProps {
   color?: string;
   padd?: string;
+  margin?: string;
   bg?: string;
   borderColor?: string;
   fill?: boolean;
   weight?: string | number;
+  maxW?: boolean | string;
 }
 
 const SignButton = styled.button<StyledProps>`
@@ -20,9 +23,10 @@ const SignButton = styled.button<StyledProps>`
   border-radius: 20px;
   font-weight: ${({ weight = "600" }) => weight};
   padding: ${({ padd = "5px 20px" }) => padd};
+  margin: ${({ margin = "unset" }) => margin};
   cursor: pointer;
   transition: 0.3s opacity;
-  max-width: var(--Styled-btn-max-width);
+  max-width: ${({ maxW = false }) => maxW || css`var(--Styled-btn-max-width)`};
   display: flex;
   align-items: center;
   justify-content: center;
