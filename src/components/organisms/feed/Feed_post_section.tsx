@@ -9,15 +9,15 @@ import { ChatIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
 
 import React from "react";
 
-type Props = { post: any };
+type Props = { post: any; userInfo: any };
 
-export default function Feed_post_section({ post }: Props) {
+export default function Feed_post_section({ post, userInfo }: Props) {
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200  hover:bg-gray-50">
       {/* user image */}
-      {post.userImg && (
+      {userInfo?.photoURL && (
         <img
-          src={post.userImg}
+          src={userInfo?.photoURL}
           alt="user_image"
           className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer mr-4"
         />
@@ -31,11 +31,11 @@ export default function Feed_post_section({ post }: Props) {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-1 whitespace-nowrap">
                 <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                  {post.name}
+                  {post.data().userName}
                 </h4>
                 <span className="text-sm sm:text-[15px] text-gray-500">
                   {" "}
-                  @{post.username} -{" "}
+                  @{post.data().username} -{" "}
                 </span>
                 <span className="text-sm sm:text-[15px] hover:underline text-gray-500">
                   {post.timestamp}
@@ -48,11 +48,15 @@ export default function Feed_post_section({ post }: Props) {
 
             {/* post text */}
             <p className="text-gray-800 text-[15px sm:text-[16] mb-2">
-              {post.text}
+              {post.data().text}
             </p>
             {/* post image */}
-            {post.img && (
-              <img className="rounded-2xl mr-2" src={post.img} alt="img" />
+            {post.data().image && (
+              <img
+                className="rounded-2xl mr-2"
+                src={post.data().image}
+                alt="img"
+              />
             )}
             {/* icons */}
             <div className="flex items-center justify-between text-gray-500 p-2">
