@@ -9,17 +9,20 @@ import Login from "@/components/organisms/SignAndLog/Login/Login";
 import Signup from "@/components/organisms/SignAndLog/Signup/Signup";
 import LoginWithEmail_Password from "@/components/organisms/SignAndLog/LoginWithEmail_Password/LoginWithEmail_Password";
 import CreateAccount from "../SignAndLog/CreateAccount/CreateAccount";
+import { useAuth } from "@/hooks/AuthContext";
 
 type Props = { userInfo: any; displayAlert: (msg: string) => void };
 
 function Footer({ userInfo, displayAlert }: Props) {
-  const [log, setLog] = React.useState<{
+  type logType = {
     login: boolean;
     signup: boolean;
     emailPass: boolean;
     createAcc: boolean;
     forgotPass?: boolean;
-  }>({
+  };
+
+  const [log, setLog] = React.useState<logType>({
     login: false,
     signup: false,
     emailPass: false,
@@ -27,61 +30,49 @@ function Footer({ userInfo, displayAlert }: Props) {
     createAcc: false,
   });
 
+  const { logFunctions, logs } = useAuth();
+
   useEffect(() => {
     displayAlert("testing the alert");
   }, []);
 
-  const loginModal = () =>
-    setLog({ signup: false, emailPass: false, createAcc: false, login: true });
-
-  const signupModal = () =>
-    setLog({ login: false, emailPass: false, createAcc: false, signup: true });
-
-  const createAccModal = () =>
-    setLog({ login: false, emailPass: false, signup: false, createAcc: true });
-
-  const toEmailPass = () =>
-    setLog({ login: false, signup: false, createAcc: false, emailPass: true });
-
-  const closeLog = () =>
-    setLog({ login: false, signup: false, createAcc: false, emailPass: false });
+  const { loginModal, signupModal, createAccModal, toEmailPass, closeLog } =
+    logFunctions;
 
   return (
     <>
       {!userInfo && (
         <>
-          {log.login && (
+          {logs.login && (
             <Login
-              open={log.login}
+              open={logs.login} /* this open attribute is for the modal tag */
               signupModal={signupModal}
               closeLog={closeLog}
               toEmailPass={toEmailPass}
             />
           )}
 
-          {log.signup && (
+          {logs.signup && (
             <Signup
-              open={log.signup}
+              open={logs.signup} /* this open attribute is for the modal tag */
               closeLog={closeLog}
               loginModal={loginModal}
               createAccModal={createAccModal}
             />
           )}
 
-          {log.emailPass && (
+          {logs.emailPass && (
             <LoginWithEmail_Password
-              open={log.emailPass}
+              open={
+                logs.emailPass
+              } /* this open attribute is for the modal tag */
               closeLog={closeLog}
               signupModal={signupModal}
             />
           )}
 
-          {log.createAcc && (
-            <CreateAccount
-              open={log.emailPass}
-              closeLog={closeLog}
-              signupModal={signupModal}
-            />
+          {logs.createAcc && (
+            <CreateAccount open={logs.createAcc} closeLog={closeLog} />
           )}
 
           <StyledFooter>

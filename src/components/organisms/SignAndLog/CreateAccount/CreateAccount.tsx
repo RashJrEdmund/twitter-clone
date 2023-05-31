@@ -17,10 +17,9 @@ import { useAuth } from "@/hooks/AuthContext";
 type Props = {
   open: boolean;
   closeLog: () => void;
-  signupModal: () => void;
 };
 
-export default function CreateAccount({ open, closeLog, signupModal }: Props) {
+export default function CreateAccount({ closeLog, open }: Props) {
   const { googleLogin } = useAuth();
 
   return (

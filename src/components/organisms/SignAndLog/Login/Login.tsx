@@ -24,12 +24,22 @@ type Props = {
 };
 
 export default function Login({
-  open,
   closeLog,
   signupModal,
   toEmailPass,
+  open,
 }: Props) {
   const { googleLogin } = useAuth();
+  const [inputVal, setInputVal] = React.useState<string>("");
+  const emailReg = /\w{2}[@]\w{3,5}[.]/
+
+  const handleSubmit = () => {
+    if (!inputVal.trim() || !/\w/.test(inputVal)) {
+      console.log("no value found");
+      return;
+    }
+    toEmailPass();
+  };
 
   return (
     <StyledSingIn_Login open={open}>
@@ -63,14 +73,18 @@ export default function Login({
           <hr />
         </StrikedText>
 
-        <SignInput placeholder="Phone, email address or username" />
+        <SignInput
+          placeholder="Phone, email address or username"
+          value={inputVal}
+          onChange={({ target: { value } }) => setInputVal(value)}
+        />
 
         <SignButton
           color="#fff"
           bg="#000"
           padd="9px 70px"
           fill
-          onClick={toEmailPass}
+          onClick={handleSubmit}
         >
           Next
         </SignButton>

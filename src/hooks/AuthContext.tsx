@@ -22,6 +22,14 @@ type reactType = {
   children: React.ReactNode;
 };
 
+type logType = {
+  login: boolean;
+  signup: boolean;
+  emailPass: boolean;
+  createAcc: boolean;
+  forgotPass?: boolean;
+};
+
 export const useAuth: any = () => useContext(AuthContext);
 
 const AuthContext = createContext({});
@@ -29,6 +37,14 @@ const AuthContext = createContext({});
 export function AuthContextProvider({ children }: reactType) {
   const [userInfo, setUserInfo] = useState<any>();
   const [data, setData] = useState<boolean>(false);
+
+  const [logs, setLogs] = useState<logType>({
+    login: false,
+    signup: false,
+    emailPass: false,
+    forgotPass: false,
+    createAcc: false,
+  });
 
   useEffect((): any => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
@@ -48,6 +64,48 @@ export function AuthContextProvider({ children }: reactType) {
 
     return () => unsubscribe;
   }, [data]);
+
+  const logFunctions = {
+    loginModal: () =>
+      setLogs({
+        signup: false,
+        emailPass: false,
+        createAcc: false,
+        login: true,
+      }),
+
+    signupModal: () =>
+      setLogs({
+        login: false,
+        emailPass: false,
+        createAcc: false,
+        signup: true,
+      }),
+
+    createAccModal: () =>
+      setLogs({
+        login: false,
+        emailPass: false,
+        signup: false,
+        createAcc: true,
+      }),
+
+    toEmailPass: () =>
+      setLogs({
+        login: false,
+        signup: false,
+        createAcc: false,
+        emailPass: true,
+      }),
+
+    closeLog: () =>
+      setLogs({
+        login: false,
+        signup: false,
+        createAcc: false,
+        emailPass: false,
+      }),
+  };
 
   const signupWithEmailPassword = async (formData: formType) => {
     const { email, password } = formData;
@@ -89,6 +147,8 @@ export function AuthContextProvider({ children }: reactType) {
         signupWithEmailPassword,
         googleLogin,
         logout,
+        logFunctions,
+        logs,
       }}
     >
       {children}
