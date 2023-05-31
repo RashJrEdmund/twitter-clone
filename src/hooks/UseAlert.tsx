@@ -1,9 +1,13 @@
 /* eslint-disable no-shadow */
-import styled from '@emotion/styled';
-import { useState } from 'react';
+import styled from "@emotion/styled";
+import { type } from "os";
+import { useState } from "react";
 
+interface ComponentParams {
+  theme?: string;
+}
 
-const StyledAlertMessage = styled.div`
+const StyledAlertMessage = styled.div<ComponentParams>`
   @keyframes alertAnime {
     from {
       margin: 0;
@@ -16,8 +20,8 @@ const StyledAlertMessage = styled.div`
   animation-name: alertAnime;
   animation-duration: 0.5s;
 
-  background-color: #000;
-  color: #fff;
+  background-color: ${({ theme = "dark" }) =>
+    theme === "dark" ? "#198ad5" : "#fff"};
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -33,35 +37,21 @@ const StyledAlertMessage = styled.div`
   align-items: flex-start;
   justify-content: center;
   border-radius: 10px;
-  border: 1px solid gray;
 
   p {
-    color: #fff;
-
-    &::before {
-      content: ' ';
-      position: absolute;
-      bottom: calc(100% - 14.5px);
-      background-color: #000;
-      border-left: 1px solid gray;
-      border-top: 1px solid gray;
-      transform: rotate(45deg);
-      height: 30px;
-      width: 30px;
-      z-index: -1;
-    }
+    color: ${({ theme = "dark" }) => (theme === "dark" ? "#fff" : "#000")};
   }
 `;
 
 const useAlert = () => {
   const [alertMsg, setAlertMsg] = useState({
-    message: '',
+    message: "",
     show: false,
   });
 
-  function AlertComponent() {
+  function AlertComponent({ theme }: ComponentParams) {
     return (
-      <StyledAlertMessage>
+      <StyledAlertMessage theme={theme}>
         <p>{alertMsg.message}</p>
       </StyledAlertMessage>
     );
@@ -71,7 +61,7 @@ const useAlert = () => {
     setAlertMsg(() => ({ message: msg, show: true }));
 
     setTimeout(() => {
-      setAlertMsg(() => ({ message: '', show: false }));
+      setAlertMsg(() => ({ message: "", show: false }));
     }, 2000);
   };
 

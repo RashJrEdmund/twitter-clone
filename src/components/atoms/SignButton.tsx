@@ -12,6 +12,7 @@ interface StyledProps {
   fill?: boolean;
   weight?: string | number;
   maxW?: boolean | string;
+  maxScreenQuery?: string;
 }
 
 const SignButton = styled.button<StyledProps>`
@@ -39,6 +40,12 @@ const SignButton = styled.button<StyledProps>`
   }
 
   @media only screen and (max-width: 650px) {
+    width: 100%;
+  }
+`;
+
+export const ExtendedSignButton = styled(SignButton)`
+  @media only screen and (max-width: 700px) {
     width: 100%;
   }
 `;
