@@ -4,7 +4,7 @@ import { SearchIcon } from "@heroicons/react/outline/";
 import News from "../news/News";
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import SignWidget from "@/components/SignWidget/SignWidget";
+import SignWidget from "@/components/organisms/SignWidget/SignWidget";
 
 type Props = {
   userInfo: any;

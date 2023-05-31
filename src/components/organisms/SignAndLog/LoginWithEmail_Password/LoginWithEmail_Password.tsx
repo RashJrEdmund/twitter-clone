@@ -6,11 +6,11 @@ import {
   Overlay,
   CancelBtn,
   StyledTwitterIcon,
-} from "../atoms/LoginRegistAtoms";
-import SignButton from "../atoms/SignButton";
+} from "../../../atoms/LoginRegistAtoms";
+import SignButton from "../../../atoms/SignButton";
 
-import AnchorTag from "../atoms/AnchorTag";
-import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
+import AnchorTag from "../../../atoms/AnchorTag";
+import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
 import { useAuth } from "@/hooks/AuthContext";
 
 type Props = {
@@ -24,7 +24,7 @@ export default function LoginWithEmail_Password({
   closeLog,
   signupModal,
 }: Props) {
-  const { googleLogin } = useAuth();
+  const { signupWithEmailPassword } = useAuth();
 
   return (
     <StyledSingIn_Login open={open}>

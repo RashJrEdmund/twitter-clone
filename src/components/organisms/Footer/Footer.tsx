@@ -5,9 +5,10 @@ import { FooterHeader, StyledPTag } from "../../atoms/LoginRegistAtoms";
 import SignButton, { ExtendedSignButton } from "../../atoms/SignButton";
 
 import { StyledFooter } from "./StyledFooter";
-import Login from "@/components/Login/Login";
-import Signup from "@/components/Signup/Signup";
-import LoginWithEmail_Password from "@/components/LoginWithEmail_Password/LoginWithEmail_Password";
+import Login from "@/components/organisms/SignAndLog/Login/Login";
+import Signup from "@/components/organisms/SignAndLog/Signup/Signup";
+import LoginWithEmail_Password from "@/components/organisms/SignAndLog/LoginWithEmail_Password/LoginWithEmail_Password";
+import CreateAccount from "../SignAndLog/CreateAccount/CreateAccount";
 
 type Props = { userInfo: any; displayAlert: (msg: string) => void };
 
@@ -16,12 +17,14 @@ function Footer({ userInfo, displayAlert }: Props) {
     login: boolean;
     signup: boolean;
     emailPass: boolean;
+    createAcc: boolean;
     forgotPass?: boolean;
   }>({
     login: false,
     signup: false,
     emailPass: false,
     forgotPass: false,
+    createAcc: false,
   });
 
   useEffect(() => {
@@ -29,16 +32,19 @@ function Footer({ userInfo, displayAlert }: Props) {
   }, []);
 
   const loginModal = () =>
-    setLog({ signup: false, emailPass: false, login: true });
+    setLog({ signup: false, emailPass: false, createAcc: false, login: true });
 
   const signupModal = () =>
-    setLog({ login: false, emailPass: false, signup: true });
+    setLog({ login: false, emailPass: false, createAcc: false, signup: true });
 
-  const closeLog = () =>
-    setLog({ login: false, signup: false, emailPass: false });
+  const createAccModal = () =>
+    setLog({ login: false, emailPass: false, signup: false, createAcc: true });
 
   const toEmailPass = () =>
-    setLog({ login: false, signup: false, emailPass: true });
+    setLog({ login: false, signup: false, createAcc: false, emailPass: true });
+
+  const closeLog = () =>
+    setLog({ login: false, signup: false, createAcc: false, emailPass: false });
 
   return (
     <>
@@ -58,11 +64,20 @@ function Footer({ userInfo, displayAlert }: Props) {
               open={log.signup}
               closeLog={closeLog}
               loginModal={loginModal}
+              createAccModal={createAccModal}
             />
           )}
 
           {log.emailPass && (
             <LoginWithEmail_Password
+              open={log.emailPass}
+              closeLog={closeLog}
+              signupModal={signupModal}
+            />
+          )}
+
+          {log.createAcc && (
+            <CreateAccount
               open={log.emailPass}
               closeLog={closeLog}
               signupModal={signupModal}

@@ -1,12 +1,12 @@
 import React from "react";
-import StyledSignWidget from "../molecules/StyledSignWidget";
+import StyledSignWidget from "../../molecules/StyledSignWidget";
 import {
   StyledApple,
   StyledGoogle,
   StyledHeader,
-} from "../atoms/LoginRegistAtoms";
-import SignButton from "../atoms/SignButton";
-import AnchorTag from "../atoms/AnchorTag";
+} from "../../atoms/LoginRegistAtoms";
+import SignButton from "../../atoms/SignButton";
+import AnchorTag from "../../atoms/AnchorTag";
 import { useAuth } from "@/hooks/AuthContext";
 
 type Props = {};

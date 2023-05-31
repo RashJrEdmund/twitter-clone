@@ -8,12 +8,12 @@ import {
   StyledTwitterIcon,
   StyledGoogle,
   StyledApple,
-} from "../atoms/LoginRegistAtoms";
-import SignButton from "../atoms/SignButton";
+} from "../../../atoms/LoginRegistAtoms";
+import SignButton from "../../../atoms/SignButton";
 
-import AnchorTag from "../atoms/AnchorTag";
-import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
-import { StrikedText } from "../molecules/Molecules";
+import AnchorTag from "../../../atoms/AnchorTag";
+import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
+import { StrikedText } from "../../../molecules/Molecules";
 import { useAuth } from "@/hooks/AuthContext";
 
 type Props = {
