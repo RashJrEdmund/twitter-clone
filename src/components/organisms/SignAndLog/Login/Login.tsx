@@ -31,12 +31,22 @@ export default function Login({
 }: Props) {
   const { googleLogin } = useAuth();
   const [inputVal, setInputVal] = React.useState<string>("");
-  const emailReg = /\w{2}[@]\w{3,5}[.]/
+  const emailReg = /\w{2}[@]\w{3,5}[.]/;
+  const phoneReg = /\d{2}/;
 
   const handleSubmit = () => {
     if (!inputVal.trim() || !/\w/.test(inputVal)) {
       console.log("no value found");
       return;
+    }
+
+    if (emailReg.test(inputVal)) {
+      console.log("email found", inputVal);
+      // const sessionStorage.set
+    } else if (phoneReg.test(inputVal)) {
+      console.log("phonenumber found", inputVal);
+    } else {
+      console.log("username detected", inputVal);
     }
     toEmailPass();
   };
