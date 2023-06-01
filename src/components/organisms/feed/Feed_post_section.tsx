@@ -1,17 +1,57 @@
 /* eslint-disable @next/next/no-img-element */
+import { db } from "@/configs/firebase";
 import {
   ChartBarIcon,
   HeartIcon,
   ShareIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
+import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 import { ChatIcon, DotsHorizontalIcon } from "@heroicons/react/solid";
 
-import React from "react";
+import {
+  setDoc,
+  doc,
+  onSnapshot,
+  collection,
+  deleteDoc,
+} from "firebase/firestore";
+
+import React, { useEffect, useState } from "react";
+import Moment from "react-moment";
 
 type Props = { post: any; userInfo: any };
 
 export default function Feed_post_section({ post, userInfo }: Props) {
+  const [likes, setLikes] = useState<any>([]);
+  const [liked, setLiked] = useState<Boolean>(false);
+
+  /* like a tweet */
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "tweet", post.id, "likes"),
+      (snapshot) => setLikes(snapshot.docs)
+    );
+  }, [db]);
+
+  /* remove like or add if exists or not */
+  useEffect(() => {
+    setLiked(
+      likes.findIndex((like: { id: any }) => like.id === userInfo.uid) !== -1
+    );
+  }, [likes]);
+
+  /* sendin like to firestore */
+  async function likePost() {
+    if (liked) {
+      await deleteDoc(doc(db, "tweet", post?.id, "likes", userInfo?.uid));
+    } else {
+      await setDoc(doc(db, "tweet", post?.id, "likes", userInfo?.uid), {
+        userName: userInfo.displayname,
+      });
+    }
+  }
+
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200  hover:bg-gray-50">
       {/* user image */}
@@ -24,7 +64,7 @@ export default function Feed_post_section({ post, userInfo }: Props) {
       )}
       <div className="">
         {/* right- side */}
-        <div>
+        <div className="w-full">
           {/*header  */}
           <div>
             {/* post info */}
@@ -35,10 +75,10 @@ export default function Feed_post_section({ post, userInfo }: Props) {
                 </h4>
                 <span className="text-sm sm:text-[15px] text-gray-500">
                   {" "}
-                  @{post.data().username} -{" "}
+                  @{post.data().name} -{" "}
                 </span>
                 <span className="text-sm sm:text-[15px] hover:underline text-gray-500">
-                  {post.timestamp}
+                  <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
                 </span>
               </div>
 
@@ -47,7 +87,7 @@ export default function Feed_post_section({ post, userInfo }: Props) {
             </div>
 
             {/* post text */}
-            <p className="text-gray-800 text-[15px sm:text-[16] mb-2">
+            <p className="text-gray-800 text-[15px sm:text-[16] mb-2 ">
               {post.data().text}
             </p>
             {/* post image */}
@@ -62,7 +102,18 @@ export default function Feed_post_section({ post, userInfo }: Props) {
             <div className="flex items-center justify-between text-gray-500 p-2">
               <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
               <TrashIcon className="h-9 w-9 hoverEffect  p-2  hover:bg-red-100 hover:text-red-500 rounded-full" />
-              <HeartIcon className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 hover:text-red-500 rounded-full" />
+              {liked ? (
+                <HeartIconFilled
+                  onClick={likePost}
+                  className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 text-red-500 rounded-full"
+                />
+              ) : (
+                <HeartIcon
+                  onClick={likePost}
+                  className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 hover:text-red-500 rounded-full"
+                />
+              )}
+
               <ShareIcon className="h-9 w-9 hoverEffect p-2  hover:bg-sky-100 hover:text-sky-500 rounded-full" />
               <ChartBarIcon className="h-9 w-9 hoverEffect  p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
             </div>
