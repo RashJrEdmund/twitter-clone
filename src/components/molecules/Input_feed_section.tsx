@@ -33,6 +33,7 @@ function Input_feed_section({ userInfo }: Props) {
       id: userInfo?.uid,
       text: input,
       /*       name: userInfo?.name, */
+      userImg: userInfo.photoURL,
       userName: userInfo?.displayname,
       email: userInfo?.email,
       timestamp: serverTimestamp(),
