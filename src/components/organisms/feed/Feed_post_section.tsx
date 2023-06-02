@@ -25,7 +25,7 @@ type Props = { post: any; userInfo: any };
 export default function Feed_post_section({ post, userInfo }: Props) {
   const [likes, setLikes] = useState<any>([]);
   const [liked, setLiked] = useState<Boolean>(false);
-  let [likedCount, setLikedCount] = useState<number>(0);
+
   /* like a tweet */
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -45,12 +45,10 @@ export default function Feed_post_section({ post, userInfo }: Props) {
   async function likePost() {
     if (liked) {
       await deleteDoc(doc(db, "tweet", post.id, "likes", userInfo?.uid));
-      setLikedCount(--likedCount);
     } else {
       await setDoc(doc(db, "tweet", post.id, "likes", userInfo?.uid), {
         userName: userInfo.displayname,
       });
-      setLikedCount(++likedCount);
     }
   }
 
@@ -104,21 +102,20 @@ export default function Feed_post_section({ post, userInfo }: Props) {
             <div className="flex items-center justify-between text-gray-500 p-2">
               <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
               <TrashIcon className="h-9 w-9 hoverEffect  p-2  hover:bg-red-100 hover:text-red-500 rounded-full" />
-              {liked ? (
-                <>
+              <div className="flex items-center">
+                {liked ? (
                   <HeartIconFilled
                     onClick={likePost}
                     className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 text-red-500 rounded-full"
                   />
-                  <p>{likedCount}</p>
-                </>
-              ) : (
-                <HeartIcon
-                  onClick={likePost}
-                  className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 hover:text-red-500 rounded-full"
-                />
-              )}
-
+                ) : (
+                  <HeartIcon
+                    onClick={likePost}
+                    className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 hover:text-red-500 rounded-full"
+                  />
+                )}
+                {likes.length > 0 && <span>{likes.length}</span>}
+              </div>
               <ShareIcon className="h-9 w-9 hoverEffect p-2  hover:bg-sky-100 hover:text-sky-500 rounded-full" />
               <ChartBarIcon className="h-9 w-9 hoverEffect  p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
             </div>
