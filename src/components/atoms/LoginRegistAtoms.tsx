@@ -52,8 +52,10 @@ export const SignInput = styled.input<StyledProps>`
 `;
 
 export const StyledPTag = styled.p<StyledProps>`
-  color: #fff;
-  width: fit-content;
+  color: ${({ color = "#fff" }) => color};
+  font-weight: ${({ weight = "unset" }) => weight};
+  text-align: ${({ align = "unset" }) => align};
+  width: ${({ fill = false }) => (fill ? "100%" : "fit-content")};
 `;
 
 export const Overlay = styled.div<StyledProps>`

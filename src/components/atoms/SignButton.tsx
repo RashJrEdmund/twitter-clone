@@ -35,7 +35,7 @@ const SignButton = styled.button<StyledProps>`
 
   &:hover {
     background: ${({ bg = "#fff" }) => {
-      return bg === "#fff" ? "#00000011" : "#000000d1";
+      return bg === "#fff" ? "#ffffff11" : "#000000dd";
     }};
   }
 

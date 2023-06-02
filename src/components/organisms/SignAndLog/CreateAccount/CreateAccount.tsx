@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   SignInput,
@@ -13,6 +13,7 @@ import SignButton from "../../../atoms/SignButton";
 import AnchorTag from "../../../atoms/AnchorTag";
 import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
 import { useAuth } from "@/hooks/AuthContext";
+import SelectTags from "../selectTags/SelectTags";
 
 type Props = {
   open: boolean;
@@ -21,6 +22,12 @@ type Props = {
 
 export default function CreateAccount({ closeLog, open }: Props) {
   const { googleLogin } = useAuth();
+
+  const [dateData, setDateData] = useState<any>({
+    month: "",
+    day: "",
+    year: "",
+  });
 
   return (
     <StyledSingIn_Login open={open}>
@@ -43,12 +50,16 @@ export default function CreateAccount({ closeLog, open }: Props) {
           Use email instead.
         </AnchorTag>
 
-        <StyledPTag>Date of birth</StyledPTag>
+        <StyledPTag color="#000" weight="600" align="left" fill>
+          Date of birth
+        </StyledPTag>
 
         <AnchorTag fill align="left">
           This will not be shown publicly. Confirm your own age, even if this
           account is for a business, a pet, or something else.
         </AnchorTag>
+
+        <SelectTags setDateData={setDateData} dateData={dateData} />
 
         <SignButton
           color="#fff"

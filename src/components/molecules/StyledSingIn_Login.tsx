@@ -25,6 +25,7 @@ const StyledSingIn_Login = styled.dialog<StyledProps>`
     gap: 15px;
     width: min(100vw, 590px);
     min-height: min(90vh, 600px);
+    overflow: auto;
 
     .policy_links {
       display: flex;
@@ -41,6 +42,19 @@ const StyledSingIn_Login = styled.dialog<StyledProps>`
       display: flex;
       align-items: flex-start;
       gap: 5px;
+    }
+  }
+
+  @media only screen and (max-width: 702px) {
+    .container {
+      border-radius: 0;
+      /* left: 0;
+      top: 0;
+      transform: unset; */
+      width: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      justify-content: center;
     }
   }
 `;

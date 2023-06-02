@@ -58,6 +58,10 @@ export default function LoginWithEmail_Password({
     } else setLoader({ loading: false, message: "could_not_login" });
   };
 
+  const handleForgotPass = () => {
+    loginModal();
+  };
+
   return (
     <StyledSingIn_Login open={open}>
       <Overlay />
@@ -69,31 +73,36 @@ export default function LoginWithEmail_Password({
 
         {loader.loading && <p>Loading...</p>}
 
-        <StyledHeader color="#000" weight="600" size="30px" align="left">
-          Enter your phone number or email address
-        </StyledHeader>
+        {data.type === "email" ? (
+          <AnchorTag fill align="left">
+            There was an unusall log in to you account
+          </AnchorTag>
+        ) : (
+          <StyledHeader color="#000" weight="600" size="30px" align="left">
+            Enter your password
+          </StyledHeader>
+        )}
 
-        <AnchorTag fill align="left">
-          {data?.type || "username"}: {data?.detail || ""}
-        </AnchorTag>
+        {data.type === "username" && (
+          <AnchorTag fill align="left">
+            username: {data?.detail}
+          </AnchorTag>
+        )}
 
         {loader.message === "could_not_login" && (
           <p style={{ color: "red" }}>incorrect {data.type} or password</p>
         )}
 
         <SignInput
-          error={loader.message === "could_not_login"}
           // placeholder="Phone, email address or username"
           placeholder="password"
           maxW="unset"
           onChange={({ target: { value } }: any) => setPassword(value)}
         />
 
-        {loader.message === "could_not_login" && (
-          <AnchorTag link fill align="right" onClick={loginModal}>
-            change {data.type}
-          </AnchorTag>
-        )}
+        <AnchorTag link fill align="left" onClick={handleForgotPass}>
+          fogort password
+        </AnchorTag>
 
         <SignButton
           color="#fff"

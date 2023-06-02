@@ -11,3 +11,20 @@ export const readFromSession: () => any = () => {
 export const clearSession: () => void = () => {
   sessionStorage.removeItem("userInfo");
 };
+
+export const multiYears = ["2015", "2016", "2017", "2018", "2019", "2020"];
+
+export const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
