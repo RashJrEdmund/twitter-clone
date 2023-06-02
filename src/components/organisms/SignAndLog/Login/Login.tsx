@@ -34,7 +34,9 @@ export default function Login({
   const emailReg = /\w{2}[@]\w{3,5}[.]/;
   const phoneReg = /\d{2}/;
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
     if (!inputVal.trim() || !/\w/.test(inputVal)) {
       console.log("no value found");
       return;
@@ -42,11 +44,16 @@ export default function Login({
 
     if (emailReg.test(inputVal)) {
       console.log("email found", inputVal);
-      // const sessionStorage.set
+      const data = { type: "email", detail: inputVal };
+      sessionStorage.setItem("log", JSON.stringify(data));
     } else if (phoneReg.test(inputVal)) {
       console.log("phonenumber found", inputVal);
+      const data = { type: "phone", detail: inputVal };
+      sessionStorage.setItem("log", JSON.stringify(data));
     } else {
       console.log("username detected", inputVal);
+      const data = { type: "username", detail: inputVal };
+      sessionStorage.setItem("log", JSON.stringify(data));
     }
     toEmailPass();
   };
@@ -55,7 +62,7 @@ export default function Login({
     <StyledSingIn_Login open={open}>
       <Overlay />
 
-      <div className="container">
+      <form className="container" onSubmit={handleSubmit}>
         <CancelBtn onClick={closeLog} />
 
         <StyledTwitterIcon />
@@ -64,13 +71,19 @@ export default function Login({
           Sing in to Twitter
         </StyledHeader>
 
-        <SignButton padd="9px 70px" fill weight="300" onClick={googleLogin}>
+        <SignButton
+          padd="9px 70px"
+          fill
+          weight="300"
+          type="button"
+          onClick={googleLogin}
+        >
           <span>
             <StyledGoogle />
           </span>
           Sign in with Google
         </SignButton>
-        <SignButton padd="9px 70px" fill>
+        <SignButton padd="9px 70px" fill type="button">
           <span>
             <StyledApple />
           </span>
@@ -89,17 +102,11 @@ export default function Login({
           onChange={({ target: { value } }) => setInputVal(value)}
         />
 
-        <SignButton
-          color="#fff"
-          bg="#000"
-          padd="9px 70px"
-          fill
-          onClick={handleSubmit}
-        >
+        <SignButton color="#fff" bg="#000" padd="9px 70px" fill type="submit">
           Next
         </SignButton>
 
-        <SignButton padd="9px 70px" fill>
+        <SignButton padd="9px 70px" fill type="button">
           Forgot password?
         </SignButton>
 
@@ -109,7 +116,7 @@ export default function Login({
             Sign up
           </AnchorTag>
         </div>
-      </div>
+      </form>
     </StyledSingIn_Login>
   );
 }

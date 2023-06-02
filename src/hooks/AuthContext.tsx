@@ -16,6 +16,7 @@ import { auth, googleProvider } from "../configs/firebase";
 type formType = {
   email: string;
   password: string;
+  setLoader?: ({ loading: boolean, message: string }) => void;
 };
 
 type reactType = {
@@ -108,12 +109,14 @@ export function AuthContextProvider({ children }: reactType) {
   };
 
   const signupWithEmailPassword = async (formData: formType) => {
-    const { email, password } = formData;
-    await createUserWithEmailAndPassword(auth, email, password);
+    const { email, password, setLoader } = formData;
+    await createUserWithEmailAndPassword(auth, email, password).finally(() => {
+      if (setLoader) setLoader({ loading: false, message: "could_not_login" });
+    });
   };
 
   const LoginWithEmailPassword = async (formData: formType) => {
-    const { email, password } = formData;
+    const { email, password, setLoader } = formData;
 
     if (!email || !password) {
       //   displayAlert('input all fields');
@@ -124,7 +127,11 @@ export function AuthContextProvider({ children }: reactType) {
       .then((res) => {
         console.log("email password signup res", res);
       })
-      .catch((e) => console.log(e)); // takes 3 parameters auth eamil and password
+      .catch((e) => console.log("this error", e)) // takes 3 parameters auth eamil and password
+      .finally(
+        () =>
+          setLoader && setLoader({ loading: false, message: "could_not_login" })
+      );
   };
 
   const googleLogin = async () => {

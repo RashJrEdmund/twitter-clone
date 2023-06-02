@@ -17,6 +17,7 @@ interface StyledProps {
   index?: string;
   margin?: string;
   loading?: boolean;
+  error?: boolean;
   align?: string;
   maxW?: boolean | string;
 }
@@ -43,7 +44,7 @@ export const SignInput = styled.input<StyledProps>`
   color: ${({ color = "#000" }) => color};
   width: 100%;
   height: 60px;
-  border: 1px solid #80808054;
+  border: ${({ error }) => (error ? "1px solid red" : "1px solid #80808054")};
   border-radius: 4px;
   padding: 10px;
   transition: 0.3s opacity;
