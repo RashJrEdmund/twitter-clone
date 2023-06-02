@@ -37,17 +37,17 @@ export default function Feed_post_section({ post, userInfo }: Props) {
   /* remove like or add if exists or not */
   useEffect(() => {
     setLiked(
-      likes.findIndex((like: { id: any }) => like.id === userInfo.uid) !== -1
+      likes.findIndex((like: { id: any }) => like.id === userInfo?.uid) !== -1
     );
   }, [likes]);
 
   /* sendin like to firestore */
   async function likePost() {
     if (liked) {
-      await deleteDoc(doc(db, "tweet", post?.id, "likes", userInfo?.uid));
+      await deleteDoc(doc(db, "tweet", post.id, "likes", userInfo?.uid));
       setLikedCount(--likedCount);
     } else {
-      await setDoc(doc(db, "tweet", post?.id, "likes", userInfo?.uid), {
+      await setDoc(doc(db, "tweet", post.id, "likes", userInfo?.uid), {
         userName: userInfo.displayname,
       });
       setLikedCount(++likedCount);
