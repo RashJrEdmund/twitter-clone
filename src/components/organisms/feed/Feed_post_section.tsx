@@ -25,14 +25,14 @@ type Props = { post: any; userInfo: any };
 export default function Feed_post_section({ post, userInfo }: Props) {
   const [likes, setLikes] = useState<any>([]);
   const [liked, setLiked] = useState<Boolean>(false);
-
+  let [likedCount, setLikedCount] = useState<number>(0);
   /* like a tweet */
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "tweet", post.id, "likes"),
       (snapshot) => setLikes(snapshot.docs)
     );
-  }, [db]);
+  }, [post.id]);
 
   /* remove like or add if exists or not */
   useEffect(() => {
@@ -45,10 +45,12 @@ export default function Feed_post_section({ post, userInfo }: Props) {
   async function likePost() {
     if (liked) {
       await deleteDoc(doc(db, "tweet", post?.id, "likes", userInfo?.uid));
+      setLikedCount(--likedCount);
     } else {
       await setDoc(doc(db, "tweet", post?.id, "likes", userInfo?.uid), {
         userName: userInfo.displayname,
       });
+      setLikedCount(++likedCount);
     }
   }
 
@@ -103,10 +105,13 @@ export default function Feed_post_section({ post, userInfo }: Props) {
               <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
               <TrashIcon className="h-9 w-9 hoverEffect  p-2  hover:bg-red-100 hover:text-red-500 rounded-full" />
               {liked ? (
-                <HeartIconFilled
-                  onClick={likePost}
-                  className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 text-red-500 rounded-full"
-                />
+                <>
+                  <HeartIconFilled
+                    onClick={likePost}
+                    className="h-9 w-9 hoverEffect  p-2 hover:bg-red-100 text-red-500 rounded-full"
+                  />
+                  <p>{likedCount}</p>
+                </>
               ) : (
                 <HeartIcon
                   onClick={likePost}

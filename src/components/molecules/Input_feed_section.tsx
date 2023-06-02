@@ -90,7 +90,7 @@ function Input_feed_section({ userInfo }: Props) {
       } `}
     >
       <img
-        src={userInfo.photoURL}
+        src={userInfo?.photoURL}
         alt="tell"
         className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer"
       />
