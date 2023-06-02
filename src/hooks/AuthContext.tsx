@@ -79,7 +79,6 @@ export function AuthContextProvider({ children }: reactType) {
   };
 
   // logout();
-
   return (
     <AuthContext.Provider
       value={{
