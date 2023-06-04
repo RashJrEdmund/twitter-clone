@@ -10,6 +10,7 @@ import Signup from "@/components/organisms/SignAndLog/Signup/Signup";
 import LoginWithEmail_Password from "@/components/organisms/SignAndLog/LoginWithEmail_Password/LoginWithEmail_Password";
 import CreateAccount from "../SignAndLog/CreateAccount/CreateAccount";
 import { useAuth } from "@/hooks/AuthContext";
+import CompleteSingup from "../SignAndLog/CompleteSignup/CompleteSignup";
 
 type Props = { userInfo: any; displayAlert: (msg: string) => void };
 
@@ -19,6 +20,7 @@ function Footer({ userInfo, displayAlert }: Props) {
     signup: boolean;
     emailPass: boolean;
     createAcc: boolean;
+    completeSignup: boolean;
     forgotPass?: boolean;
   };
 
@@ -28,6 +30,7 @@ function Footer({ userInfo, displayAlert }: Props) {
     emailPass: false,
     forgotPass: false,
     createAcc: false,
+    completeSignup: false,
   });
 
   const { logFunctions, logs } = useAuth();
@@ -73,6 +76,14 @@ function Footer({ userInfo, displayAlert }: Props) {
 
           {logs.createAcc && (
             <CreateAccount open={logs.createAcc} closeLog={closeLog} />
+          )}
+
+          {!logs.completeSignup && (
+            <CompleteSingup
+              open={logs.createAcc}
+              closeLog={closeLog}
+              createAccModal={createAccModal}
+            />
           )}
 
           <StyledFooter>

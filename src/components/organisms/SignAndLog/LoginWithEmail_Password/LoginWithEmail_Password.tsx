@@ -74,18 +74,24 @@ export default function LoginWithEmail_Password({
         {loader.loading && <p>Loading...</p>}
 
         {data.type === "email" ? (
-          <AnchorTag fill align="left">
-            There was an unusall log in to you account
-          </AnchorTag>
+          <StyledHeader color="#000" weight="600" size="30px" align="left">
+            Enter your phone number or username
+          </StyledHeader>
         ) : (
           <StyledHeader color="#000" weight="600" size="30px" align="left">
             Enter your password
           </StyledHeader>
         )}
 
-        {data.type === "username" && (
+        {data.type === "email" ? (
           <AnchorTag fill align="left">
-            username: {data?.detail}
+            There was unusual login activity on your account. To help keep your
+            account safe, please enter your phone number or username to verify
+            that it’s you.
+          </AnchorTag>
+        ) : (
+          <AnchorTag fill align="left">
+            {data.type}: {data?.detail}
           </AnchorTag>
         )}
 

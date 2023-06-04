@@ -1,17 +1,22 @@
-import { monthNames, multiYears } from "@/services/utils";
+import { monthNames, getYears, getDays } from "@/services/utils";
 import React, { useEffect } from "react";
 import StyledSelectTag from "./StyledSelectTags";
 
 type dateType = { month: string; day: string; year: string };
 
 type Props = {
-  setDateData: any;
-  dateData: dateType;
+  setFormData: any;
+  formData: dateType;
 };
 
-export default function SelectTags({ setDateData, dateData }: Props) {
+export default function SelectTags({ setFormData, formData }: Props) {
   useEffect(() => {
-    setDateData({ month: monthNames[0], day: "1", year: "" });
+    setFormData((prev: any) => ({
+      ...prev,
+      month: monthNames[0],
+      day: "1",
+      year: "",
+    }));
   }, []);
 
   return (
@@ -21,7 +26,7 @@ export default function SelectTags({ setDateData, dateData }: Props) {
         <select
           className="months"
           onChange={({ target: { value } }) =>
-            setDateData((prev: dateType) => ({ ...prev, month: value }))
+            setFormData((prev: dateType) => ({ ...prev, month: value }))
           }
         >
           {monthNames.map((month) => (
@@ -37,12 +42,12 @@ export default function SelectTags({ setDateData, dateData }: Props) {
         <select
           className="days"
           onChange={({ target: { value } }) =>
-            setDateData((prev: dateType) => ({ ...prev, day: value }))
+            setFormData((prev: dateType) => ({ ...prev, day: value }))
           }
         >
-          {multiYears.map((yr) => (
-            <option value={yr} id={yr} key={yr}>
-              {yr}
+          {getDays(formData.month).map((day) => (
+            <option value={day} id={day} key={day}>
+              {day}
             </option>
           ))}
         </select>
@@ -53,10 +58,10 @@ export default function SelectTags({ setDateData, dateData }: Props) {
         <select
           className="years"
           onChange={({ target: { value } }) =>
-            setDateData((prev: dateType) => ({ ...prev, year: value }))
+            setFormData((prev: dateType) => ({ ...prev, year: value }))
           }
         >
-          {multiYears.map((yr) => (
+          {getYears().map((yr) => (
             <option value={yr} id={yr} key={yr}>
               {yr}
             </option>

@@ -16,7 +16,7 @@ import { auth, googleProvider } from "../configs/firebase";
 type formType = {
   email: string;
   password: string;
-  setLoader?: ({ loading: boolean, message: string }) => void;
+  setLoader?: ({}: any) => void;
 };
 
 type reactType = {
@@ -28,6 +28,7 @@ type logType = {
   signup: boolean;
   emailPass: boolean;
   createAcc: boolean;
+  completeSignup: boolean;
   forgotPass?: boolean;
 };
 
@@ -45,6 +46,7 @@ export function AuthContextProvider({ children }: reactType) {
     emailPass: false,
     forgotPass: false,
     createAcc: false,
+    completeSignup: false,
   });
 
   useEffect((): any => {
@@ -72,6 +74,7 @@ export function AuthContextProvider({ children }: reactType) {
         signup: false,
         emailPass: false,
         createAcc: false,
+        completeSignup: false,
         login: true,
       }),
 
@@ -80,6 +83,7 @@ export function AuthContextProvider({ children }: reactType) {
         login: false,
         emailPass: false,
         createAcc: false,
+        completeSignup: false,
         signup: true,
       }),
 
@@ -88,7 +92,17 @@ export function AuthContextProvider({ children }: reactType) {
         login: false,
         emailPass: false,
         signup: false,
+        completeSignup: false,
         createAcc: true,
+      }),
+
+    completeSignupModal: () =>
+      setLogs({
+        login: false,
+        emailPass: false,
+        signup: false,
+        createAcc: false,
+        completeSignup: true,
       }),
 
     toEmailPass: () =>
@@ -96,6 +110,7 @@ export function AuthContextProvider({ children }: reactType) {
         login: false,
         signup: false,
         createAcc: false,
+        completeSignup: false,
         emailPass: true,
       }),
 
@@ -104,6 +119,7 @@ export function AuthContextProvider({ children }: reactType) {
         login: false,
         signup: false,
         createAcc: false,
+        completeSignup: false,
         emailPass: false,
       }),
   };
@@ -139,8 +155,9 @@ export function AuthContextProvider({ children }: reactType) {
   };
 
   const logout = async () => {
-    await signOut(auth);
-    setUserInfo(null);
+    await signOut(auth).finally(() => {
+      setUserInfo(null);
+    });
   };
 
   // logout();

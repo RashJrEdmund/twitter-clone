@@ -19,10 +19,14 @@ import { auth } from "@/configs/firebase";
 type Props = {
   open: boolean;
   closeLog: () => void;
+  createAccModal: () => void;
 };
 
-export default function CreateAccount({ closeLog, open }: Props) {
-  const { signupWithEmailPassword } = useAuth();
+export default function CompleteSingup({
+  closeLog,
+  open,
+  createAccModal,
+}: Props) {
   const [loader, setLoader] = useState<{ loading: boolean; message: string }>({
     loading: false,
     message: "",
@@ -41,23 +45,23 @@ export default function CreateAccount({ closeLog, open }: Props) {
   const [signType, setSignType] = useState<string>("phone");
 
   useEffect(() => {
-    setSignType("phone");
-  }, []);
+    const sessionData = sessionStorage.getItem("singData");
+    if (sessionData) {
+      const data = JSON.parse(sessionData);
+      setFormData(JSON.parse(data));
 
-  const switchBetweenPhoneEmail = () => {
-    setFormData((prev: any) => ({ ...prev, [signType]: "" }));
-    setSignType((prev: string) => (prev === "phone" ? "email" : "phone"));
-  };
+      if (data.phone) {
+        setSignType("phone");
+      } else setSignType("email");
+    } else createAccModal();
+  }, []);
 
   const handleSubmit: (e: any) => void = async (e) => {
     e.preventDefault();
+  };
 
-    if (signType === "email") {
-      if (!formData.name.trim() || !formData[signType].trim())
-        return console.warn("missing user info");
-
-      sessionStorage.setItem("singData", JSON.stringify(formData));
-    }
+  const goBacktocreateAccModal = () => {
+    createAccModal();
   };
 
   return (
@@ -77,34 +81,43 @@ export default function CreateAccount({ closeLog, open }: Props) {
           placeholder="name"
           maxW="unset"
           value={formData.name}
-          onChange={({ target: { value } }) =>
-            setFormData((prev: any) => ({ ...prev, name: value }))
-          }
+          onChange={goBacktocreateAccModal}
         />
 
         <SignInput
           placeholder={signType}
           maxW="unset"
           value={formData[signType]}
-          onChange={({ target: { value } }) =>
-            setFormData((prev: any) => ({ ...prev, [signType]: value }))
-          }
+          onChange={goBacktocreateAccModal}
         />
 
-        <AnchorTag fill link align="right" onClick={switchBetweenPhoneEmail}>
-          Use {signType === "phone" ? "email" : "phone"} instead.
-        </AnchorTag>
+        <SignInput
+          placeholder="date of birth"
+          maxW="unset"
+          value={formData.day + " " + formData.month + " " + formData.year}
+          onChange={goBacktocreateAccModal}
+        />
 
-        <StyledPTag color="#000" weight="600" align="left" fill>
-          Date of birth
-        </StyledPTag>
-
-        <AnchorTag fill align="left">
-          This will not be shown publicly. Confirm your own age, even if this
-          account is for a business, a pet, or something else.
-        </AnchorTag>
-
-        <SelectTags setFormData={setFormData} formData={formData} />
+        <div className="complete_paragraph">
+          <AnchorTag>By signing up, you agree to the</AnchorTag>
+          <AnchorTag link>Terms of Service</AnchorTag>
+          <AnchorTag>and</AnchorTag>
+          <AnchorTag link>Privacy Policy,</AnchorTag>
+          <AnchorTag>including</AnchorTag>
+          <AnchorTag link>Cokie Use.</AnchorTag>
+          <AnchorTag>
+            Twitter may use your contact information, including your email
+            address and phone number for purposes outlined in our Privacy
+            Policy, like keeping your account secure and personalising our
+            services, including ads.
+          </AnchorTag>
+          <AnchorTag link>Learn more</AnchorTag>
+          <AnchorTag>
+            Others will be able to find you by email or phone number, when
+            provided, unless you choose otherwise
+          </AnchorTag>
+          <AnchorTag link>here</AnchorTag>
+        </div>
 
         <SignButton
           color="#fff"
@@ -115,7 +128,7 @@ export default function CreateAccount({ closeLog, open }: Props) {
           margin="5rem 0 0"
           type="submit"
         >
-          Next
+          Sign up
         </SignButton>
       </form>
     </StyledSingIn_Login>
