@@ -20,13 +20,16 @@ import { deleteObject, ref } from "firebase/storage";
 
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
+import { useRecoilState } from "recoil";
+import { modalState, postIdState } from "../../../../Atoms/AtomsModal";
 
 type Props = { post: any; userInfo: any };
 
 export default function Feed_post_section({ post, userInfo }: Props) {
   const [likes, setLikes] = useState<any>([]);
   const [liked, setLiked] = useState<Boolean>(false);
-
+  const [open, setOpen] = useRecoilState<any>(modalState);
+  const [postId, setPostId] = useRecoilState<any>(postIdState);
   /* like a tweet */
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -61,7 +64,9 @@ export default function Feed_post_section({ post, userInfo }: Props) {
   function deletePost() {
     if (window.confirm("Are you Sure you want to delete?")) {
       deleteDoc(doc(db, "tweet", post.id));
-      deleteObject(ref(storage, `tweet/${post.id}/image`));
+      if (post.data().image) {
+        deleteObject(ref(storage, `tweet/${post.id}/image`));
+      }
     }
   }
 
@@ -113,7 +118,15 @@ export default function Feed_post_section({ post, userInfo }: Props) {
             )}
             {/* icons */}
             <div className="flex items-center justify-between text-gray-500 p-2">
-              <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full" />
+              <ChatIcon
+                onClick={() => {
+                  if (userInfo) {
+                    setPostId(post.id);
+                    setOpen(!open);
+                  }
+                }}
+                className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full"
+              />
               {post.data().id === userInfo?.uid && (
                 <TrashIcon
                   onClick={deletePost}
