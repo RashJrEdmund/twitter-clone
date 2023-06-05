@@ -1,0 +1,171 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
+
+import {
+  SignInput,
+  StyledHeader,
+  Overlay,
+  CancelBtn,
+  StyledTwitterIcon,
+} from "../../../atoms/LoginRegistAtoms";
+import SignButton from "../../../atoms/SignButton";
+
+import AnchorTag from "../../../atoms/AnchorTag";
+import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
+import { auth, db } from "@/configs/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, doc, setDoc } from "firebase/firestore";
+
+type Props = {
+  open: boolean;
+  closeLog: () => void;
+  createAccModal: () => void;
+};
+
+export default function ConfirmPasswordModal({
+  closeLog,
+  open,
+  createAccModal,
+}: Props) {
+  const [formData, setFormData] = useState<any>({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    month: "",
+    day: "",
+    year: "",
+  });
+
+  const [pass, setPass] = useState<{ password: string; confirm: string }>({
+    password: "",
+    confirm: "",
+  });
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [signType, setSignType] = useState<string>("phone");
+
+  const checkSession = () => {
+    const sessionData = sessionStorage.getItem("signData");
+    if (sessionData) {
+      const data = JSON.parse(sessionData);
+      if (
+        data.name &&
+        (data.email || data.phone) &&
+        data.month &&
+        data.day &&
+        data.month &&
+        data.year
+      ) {
+        if (data.phone) setSignType("phone");
+        else setSignType("email");
+        setFormData(data);
+      }
+    } else {
+      createAccModal();
+    }
+  };
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  const handleSubmit: (e: any) => void = async (e) => {
+    e.preventDefault();
+    checkSession();
+
+    if (pass.confirm !== pass.password) return;
+
+    if (formData.email) {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, formData.email, pass.password)
+        .then(async ({ user: { uid } }) => {
+          const username = formData.name;
+          const dateOfBirth = [
+            formData.day,
+            formData.month,
+            formData.year,
+          ].join("/");
+          const newUser = { id: uid, username, dateOfBirth, bio: "" };
+          const userCollectionRef = collection(db, "users");
+
+          await setDoc(doc(userCollectionRef, `/${uid}`), newUser); // returns undefined
+        })
+        .finally(() => setLoading(false));
+    }
+  };
+
+  const goBacktocreateAccModal = () => {
+    createAccModal();
+  };
+
+  return (
+    <StyledSingIn_Login open={open}>
+      <Overlay />
+
+      <form className="container" onSubmit={handleSubmit}>
+        <CancelBtn onClick={closeLog} />
+
+        <StyledTwitterIcon />
+
+        <StyledHeader color="#000" weight="600" size="30px" align="left">
+          Create your account
+        </StyledHeader>
+
+        {loading && <p>loading...</p>}
+
+        <SignInput
+          placeholder="password"
+          maxW="unset"
+          value={pass.password}
+          onChange={({ target: { value } }) =>
+            setPass((prev) => ({ ...prev, password: value }))
+          }
+        />
+
+        <SignInput
+          placeholder="confirm password"
+          maxW="unset"
+          value={pass.confirm}
+          error={pass.confirm && pass.password !== pass.confirm}
+          onChange={({ target: { value } }) =>
+            setPass((prev) => ({ ...prev, confirm: value }))
+          }
+        />
+
+        <div className="complete_paragraph">
+          <AnchorTag>By signing up, you agree to the </AnchorTag>
+          <AnchorTag link> Terms of Service</AnchorTag>
+          <AnchorTag>and</AnchorTag>
+          <AnchorTag link> Privacy Policy, </AnchorTag>
+          <AnchorTag>including </AnchorTag>
+          <AnchorTag link>Cokie Use. </AnchorTag>
+          <AnchorTag>
+            Twitter may use your contact information, including your email
+            address and phone number for purposes outlined in our Privacy
+            Policy, like keeping your account secure and personalising our
+            services, including ads.
+          </AnchorTag>
+          <AnchorTag link> Learn more </AnchorTag>
+          <AnchorTag>
+            Others will be able to find you by email or phone number, when
+            provided, unless you choose otherwise
+          </AnchorTag>
+          <AnchorTag link> here</AnchorTag>
+        </div>
+
+        <SignButton
+          color="#fff"
+          bg="#198ad5"
+          padd="9px 70px"
+          fill
+          maxW="unset"
+          type="submit"
+        >
+          Sign up
+        </SignButton>
+      </form>
+    </StyledSingIn_Login>
+  );
+}

@@ -7,21 +7,27 @@ import {
   StyledTwitterIcon,
   StyledGoogle,
   StyledApple,
-} from "../atoms/LoginRegistAtoms";
-import SignButton from "../atoms/SignButton";
+} from "../../../atoms/LoginRegistAtoms";
+import SignButton from "../../../atoms/SignButton";
 
-import AnchorTag from "../atoms/AnchorTag";
-import StyledSingIn_Login from "../molecules/StyledSingIn_Login";
-import { StrikedText } from "../molecules/Molecules";
+import AnchorTag from "../../../atoms/AnchorTag";
+import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
+import { StrikedText } from "../../../molecules/Molecules";
 import { useAuth } from "@/hooks/AuthContext";
 
 type Props = {
   open: boolean;
   closeLog: () => void;
   loginModal: () => void;
+  createAccModal: () => void;
 };
 
-export default function Signup({ open, closeLog, loginModal }: Props) {
+export default function Signup({
+  open,
+  closeLog,
+  loginModal,
+  createAccModal,
+}: Props) {
   const { googleLogin } = useAuth();
 
   return (
@@ -56,7 +62,13 @@ export default function Signup({ open, closeLog, loginModal }: Props) {
           <hr />
         </StrikedText>
 
-        <SignButton color="#fff" bg="#000" padd="9px 70px" fill>
+        <SignButton
+          color="#fff"
+          bg="#000"
+          padd="9px 70px"
+          fill
+          onClick={createAccModal}
+        >
           Create account
         </SignButton>
 

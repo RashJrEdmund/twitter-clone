@@ -11,6 +11,9 @@ enum AnchorColor {
 interface AnchorTagProps {
   link?: AnchorColor | boolean;
   gray_link?: AnchorColor | boolean;
+  align?: string;
+  fill?: boolean;
+  size?: string;
 }
 
 function creatHoverEffect(props: AnchorTagProps) {
@@ -39,9 +42,10 @@ function generateColor({ link }: AnchorTagProps) {
 }
 
 const AnchorTag = styled.a<AnchorTagProps>`
-  width: fit-content;
-  font-size: 14px;
+  width: ${({ fill = false }) => (fill ? "100%" : "fit-content")};
+  font-size: ${({ size = "14px" }) => size};
   margin: "5px 0";
+  text-align: ${({ align = "unset" }) => align};
   ${generateColor}
   ${creatHoverEffect}
 `;
