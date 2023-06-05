@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
 import {
@@ -12,22 +13,19 @@ import SignButton from "../../../atoms/SignButton";
 
 import AnchorTag from "../../../atoms/AnchorTag";
 import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
-import { useAuth } from "@/hooks/AuthContext";
 import SelectTags from "../selectTags/SelectTags";
-import { auth } from "@/configs/firebase";
 
 type Props = {
   open: boolean;
   closeLog: () => void;
+  toCompleteSignupModal: () => void;
 };
 
-export default function CreateAccount({ closeLog, open }: Props) {
-  const { signupWithEmailPassword } = useAuth();
-  const [loader, setLoader] = useState<{ loading: boolean; message: string }>({
-    loading: false,
-    message: "",
-  });
-
+export default function CreateAccount({
+  closeLog,
+  open,
+  toCompleteSignupModal,
+}: Props) {
   const [formData, setFormData] = useState<any>({
     name: "",
     email: "",
@@ -38,11 +36,35 @@ export default function CreateAccount({ closeLog, open }: Props) {
     year: "",
   });
 
+  const [formFilled, setFormFilled] = useState<boolean>(false);
   const [signType, setSignType] = useState<string>("phone");
 
   useEffect(() => {
-    setSignType("phone");
+    const sessionData = sessionStorage.getItem("signData");
+    if (sessionData) {
+      const data = JSON.parse(sessionData);
+      setFormData(data);
+
+      if (data.phone) {
+        setSignType("phone");
+      } else setSignType("email");
+    } else {
+      setSignType("email");
+    }
   }, []);
+
+  useEffect(() => {
+    if (
+      formData.name &&
+      formData[signType] &&
+      formData.month &&
+      formData.day &&
+      formData.month &&
+      formData.year
+    ) {
+      setFormFilled(true);
+    } else setFormFilled(false);
+  }, [formData]);
 
   const switchBetweenPhoneEmail = () => {
     setFormData((prev: any) => ({ ...prev, [signType]: "" }));
@@ -56,7 +78,8 @@ export default function CreateAccount({ closeLog, open }: Props) {
       if (!formData.name.trim() || !formData[signType].trim())
         return console.warn("missing user info");
 
-      sessionStorage.setItem("singData", JSON.stringify(formData));
+      sessionStorage.setItem("signData", JSON.stringify(formData));
+      toCompleteSignupModal();
     }
   };
 
@@ -85,6 +108,7 @@ export default function CreateAccount({ closeLog, open }: Props) {
         <SignInput
           placeholder={signType}
           maxW="unset"
+          type={signType}
           value={formData[signType]}
           onChange={({ target: { value } }) =>
             setFormData((prev: any) => ({ ...prev, [signType]: value }))
@@ -108,7 +132,7 @@ export default function CreateAccount({ closeLog, open }: Props) {
 
         <SignButton
           color="#fff"
-          bg="#000"
+          bg={formFilled ? "#198ad5" : "#000000dd"}
           padd="9px 70px"
           fill
           maxW="unset"

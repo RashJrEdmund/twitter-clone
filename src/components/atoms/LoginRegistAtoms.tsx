@@ -17,7 +17,7 @@ interface StyledProps {
   index?: string;
   margin?: string;
   loading?: boolean;
-  error?: boolean;
+  error?: boolean | any;
   align?: string;
   maxW?: boolean | string;
 }

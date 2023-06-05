@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/configs/firebase";
+import { auth, db } from "@/configs/firebase";
 import PageLoader from "@/components/PageLoader/PageLoader";
 import useAlert from "@/hooks/UseAlert";
+import { collection, doc, getDoc } from "firebase/firestore";
 
 const AuthGaurd = (Component: any) => {
   return function Gaurd(props: any) {
@@ -23,6 +24,12 @@ const AuthGaurd = (Component: any) => {
             emailVerified: user.emailVerified /* boolean */,
             // ...user,
           });
+          // const userCollectionRef = collection(db, `/${user.uid}`);
+          // getDoc(doc(userCollectionRef)).then((res) => {
+          //   console.clear();
+          //   console.log("this user from hoc", res);
+          //   // const newUser = { id: uid, username, dateOfBirth, bio: "" };
+          // });
         } else setUserInfo(null);
       });
 

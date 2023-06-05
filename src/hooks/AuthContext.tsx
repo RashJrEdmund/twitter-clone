@@ -29,6 +29,7 @@ type logType = {
   emailPass: boolean;
   createAcc: boolean;
   completeSignup: boolean;
+  confirmPassword: boolean;
   forgotPass?: boolean;
 };
 
@@ -47,6 +48,7 @@ export function AuthContextProvider({ children }: reactType) {
     forgotPass: false,
     createAcc: false,
     completeSignup: false,
+    confirmPassword: false,
   });
 
   useEffect((): any => {
@@ -75,6 +77,7 @@ export function AuthContextProvider({ children }: reactType) {
         emailPass: false,
         createAcc: false,
         completeSignup: false,
+        confirmPassword: false,
         login: true,
       }),
 
@@ -84,6 +87,7 @@ export function AuthContextProvider({ children }: reactType) {
         emailPass: false,
         createAcc: false,
         completeSignup: false,
+        confirmPassword: false,
         signup: true,
       }),
 
@@ -93,16 +97,28 @@ export function AuthContextProvider({ children }: reactType) {
         emailPass: false,
         signup: false,
         completeSignup: false,
+        confirmPassword: false,
         createAcc: true,
       }),
 
-    completeSignupModal: () =>
+    toCompleteSignupModal: () =>
       setLogs({
         login: false,
         emailPass: false,
         signup: false,
         createAcc: false,
+        confirmPassword: false,
         completeSignup: true,
+      }),
+
+    toConfirmPasswordModal: () =>
+      setLogs({
+        login: false,
+        emailPass: false,
+        signup: false,
+        createAcc: false,
+        completeSignup: false,
+        confirmPassword: true,
       }),
 
     toEmailPass: () =>
@@ -111,17 +127,22 @@ export function AuthContextProvider({ children }: reactType) {
         signup: false,
         createAcc: false,
         completeSignup: false,
+        confirmPassword: false,
         emailPass: true,
       }),
 
-    closeLog: () =>
+    closeLog: () => {
+      sessionStorage.removeItem("log");
+      sessionStorage.removeItem("signData");
       setLogs({
         login: false,
         signup: false,
         createAcc: false,
         completeSignup: false,
+        confirmPassword: false,
         emailPass: false,
-      }),
+      });
+    },
   };
 
   const signupWithEmailPassword = async (formData: formType) => {

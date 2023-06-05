@@ -13,7 +13,7 @@ export default function SelectTags({ setFormData, formData }: Props) {
   useEffect(() => {
     setFormData((prev: any) => ({
       ...prev,
-      month: monthNames[0],
+      month: "",
       day: "1",
       year: "",
     }));
@@ -29,11 +29,14 @@ export default function SelectTags({ setFormData, formData }: Props) {
             setFormData((prev: dateType) => ({ ...prev, month: value }))
           }
         >
-          {monthNames.map((month) => (
-            <option value={month} id={month} key={month}>
-              {month}
-            </option>
-          ))}
+          <>
+            <option value="" />
+            {monthNames.map((month) => (
+              <option value={month} id={month} key={month}>
+                {month}
+              </option>
+            ))}
+          </>
         </select>
       </div>
 
@@ -45,11 +48,14 @@ export default function SelectTags({ setFormData, formData }: Props) {
             setFormData((prev: dateType) => ({ ...prev, day: value }))
           }
         >
-          {getDays(formData.month).map((day) => (
-            <option value={day} id={day} key={day}>
-              {day}
-            </option>
-          ))}
+          <>
+            <option value="" />
+            {getDays(formData.month).map((day) => (
+              <option value={day} id={day} key={day}>
+                {day}
+              </option>
+            ))}
+          </>
         </select>
       </div>
 
@@ -61,11 +67,14 @@ export default function SelectTags({ setFormData, formData }: Props) {
             setFormData((prev: dateType) => ({ ...prev, year: value }))
           }
         >
-          {getYears().map((yr) => (
-            <option value={yr} id={yr} key={yr}>
-              {yr}
-            </option>
-          ))}
+          <>
+            <option value="" />
+            {getYears().map((yr) => (
+              <option value={yr} id={yr} key={yr}>
+                {yr}
+              </option>
+            ))}
+          </>
         </select>
       </div>
     </StyledSelectTag>

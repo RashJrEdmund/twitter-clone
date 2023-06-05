@@ -11,6 +11,7 @@ import LoginWithEmail_Password from "@/components/organisms/SignAndLog/LoginWith
 import CreateAccount from "../SignAndLog/CreateAccount/CreateAccount";
 import { useAuth } from "@/hooks/AuthContext";
 import CompleteSingup from "../SignAndLog/CompleteSignup/CompleteSignup";
+import ConfirmPasswordModal from "../SignAndLog/ConfirmPassword/ConfirmPasswor";
 
 type Props = { userInfo: any; displayAlert: (msg: string) => void };
 
@@ -21,6 +22,7 @@ function Footer({ userInfo, displayAlert }: Props) {
     emailPass: boolean;
     createAcc: boolean;
     completeSignup: boolean;
+    confirmPassword: boolean;
     forgotPass?: boolean;
   };
 
@@ -31,6 +33,7 @@ function Footer({ userInfo, displayAlert }: Props) {
     forgotPass: false,
     createAcc: false,
     completeSignup: false,
+    confirmPassword: false,
   });
 
   const { logFunctions, logs } = useAuth();
@@ -39,8 +42,15 @@ function Footer({ userInfo, displayAlert }: Props) {
     displayAlert("testing the alert");
   }, []);
 
-  const { loginModal, signupModal, createAccModal, toEmailPass, closeLog } =
-    logFunctions;
+  const {
+    loginModal,
+    signupModal,
+    createAccModal,
+    toCompleteSignupModal,
+    toEmailPass,
+    closeLog,
+    toConfirmPasswordModal,
+  } = logFunctions;
 
   return (
     <>
@@ -75,12 +85,25 @@ function Footer({ userInfo, displayAlert }: Props) {
           )}
 
           {logs.createAcc && (
-            <CreateAccount open={logs.createAcc} closeLog={closeLog} />
+            <CreateAccount
+              open={logs.createAcc}
+              closeLog={closeLog}
+              toCompleteSignupModal={toCompleteSignupModal}
+            />
           )}
 
-          {!logs.completeSignup && (
+          {logs.completeSignup && (
             <CompleteSingup
-              open={logs.createAcc}
+              open={logs.completeSignup}
+              closeLog={closeLog}
+              createAccModal={createAccModal}
+              toConfirmPasswordModal={toConfirmPasswordModal}
+            />
+          )}
+
+          {logs.confirmPassword && (
+            <ConfirmPasswordModal
+              open={logs.confirmPassword}
               closeLog={closeLog}
               createAccModal={createAccModal}
             />

@@ -21,7 +21,7 @@ export const getYears: () => string[] = () => {
     minYear++;
   }
 
-  return arrYears;
+  return arrYears.reverse();
 };
 
 export const getDays: (month: string) => string[] = (month) => {

@@ -43,6 +43,13 @@ const StyledSingIn_Login = styled.dialog<StyledProps>`
       align-items: flex-start;
       gap: 5px;
     }
+
+    .complete_paragraph {
+      width: 100%;
+      height: fit-content;
+      text-align: left;
+      margin: 2rem 0 0;
+    }
   }
 
   @media only screen and (max-width: 702px) {

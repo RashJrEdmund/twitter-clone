@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
 import {
@@ -6,34 +7,26 @@ import {
   Overlay,
   CancelBtn,
   StyledTwitterIcon,
-  StyledPTag,
 } from "../../../atoms/LoginRegistAtoms";
 import SignButton from "../../../atoms/SignButton";
 
 import AnchorTag from "../../../atoms/AnchorTag";
 import StyledSingIn_Login from "../../../molecules/StyledSingIn_Login";
-import { useAuth } from "@/hooks/AuthContext";
-import SelectTags from "../selectTags/SelectTags";
-import { auth } from "@/configs/firebase";
+import { auth, db } from "@/configs/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 type Props = {
   open: boolean;
   closeLog: () => void;
   createAccModal: () => void;
-  toConfirmPasswordModal: () => void;
 };
 
-export default function CompleteSingup({
+export default function ConfirmPasswordModal({
   closeLog,
   open,
   createAccModal,
-  toConfirmPasswordModal,
 }: Props) {
-  const [loader, setLoader] = useState<{ loading: boolean; message: string }>({
-    loading: false,
-    message: "",
-  });
-
   const [formData, setFormData] = useState<any>({
     name: "",
     email: "",
@@ -44,23 +37,63 @@ export default function CompleteSingup({
     year: "",
   });
 
+  const [pass, setPass] = useState<{ password: string; confirm: string }>({
+    password: "",
+    confirm: "",
+  });
+
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [signType, setSignType] = useState<string>("phone");
 
-  useEffect(() => {
+  const checkSession = () => {
     const sessionData = sessionStorage.getItem("signData");
     if (sessionData) {
       const data = JSON.parse(sessionData);
-      setFormData(data);
+      if (
+        data.name &&
+        (data.email || data.phone) &&
+        data.month &&
+        data.day &&
+        data.month &&
+        data.year
+      ) {
+        if (data.phone) setSignType("phone");
+        else setSignType("email");
+        setFormData(data);
+      }
+    } else {
+      createAccModal();
+    }
+  };
 
-      if (data.phone) {
-        setSignType("phone");
-      } else setSignType("email");
-    } else createAccModal();
+  useEffect(() => {
+    checkSession();
   }, []);
 
   const handleSubmit: (e: any) => void = async (e) => {
     e.preventDefault();
-    toConfirmPasswordModal();
+    checkSession();
+
+    if (pass.confirm !== pass.password) return;
+
+    if (formData.email) {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, formData.email, pass.password)
+        .then(async ({ user: { uid } }) => {
+          const username = formData.name;
+          const dateOfBirth = [
+            formData.day,
+            formData.month,
+            formData.year,
+          ].join("/");
+          const newUser = { id: uid, username, dateOfBirth, bio: "" };
+          const userCollectionRef = collection(db, "users");
+
+          await setDoc(doc(userCollectionRef, `/${uid}`), newUser); // returns undefined
+        })
+        .finally(() => setLoading(false));
+    }
   };
 
   const goBacktocreateAccModal = () => {
@@ -80,25 +113,25 @@ export default function CompleteSingup({
           Create your account
         </StyledHeader>
 
+        {loading && <p>loading...</p>}
+
         <SignInput
-          placeholder="name"
+          placeholder="password"
           maxW="unset"
-          value={formData.name}
-          onFocus={goBacktocreateAccModal}
+          value={pass.password}
+          onChange={({ target: { value } }) =>
+            setPass((prev) => ({ ...prev, password: value }))
+          }
         />
 
         <SignInput
-          placeholder={signType}
+          placeholder="confirm password"
           maxW="unset"
-          value={formData[signType]}
-          onFocus={goBacktocreateAccModal}
-        />
-
-        <SignInput
-          placeholder="date of birth"
-          maxW="unset"
-          value={formData.day + " " + formData.month + " " + formData.year}
-          onFocus={goBacktocreateAccModal}
+          value={pass.confirm}
+          error={pass.confirm && pass.password !== pass.confirm}
+          onChange={({ target: { value } }) =>
+            setPass((prev) => ({ ...prev, confirm: value }))
+          }
         />
 
         <div className="complete_paragraph">
