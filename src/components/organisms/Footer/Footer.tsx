@@ -1,69 +1,137 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { FooterHeader, StyledPTag } from "../../atoms/LoginRegistAtoms";
-import SignButton from "../../atoms/SignButton";
+import SignButton, { ExtendedSignButton } from "../../atoms/SignButton";
 
 import { StyledFooter } from "./StyledFooter";
-import Login from "@/components/Login/Login";
-import Signup from "@/components/Signup/Signup";
+import Login from "@/components/organisms/SignAndLog/Login/Login";
+import Signup from "@/components/organisms/SignAndLog/Signup/Signup";
+import LoginWithEmail_Password from "@/components/organisms/SignAndLog/LoginWithEmail_Password/LoginWithEmail_Password";
+import CreateAccount from "../SignAndLog/CreateAccount/CreateAccount";
+import { useAuth } from "@/hooks/AuthContext";
+import CompleteSingup from "../SignAndLog/CompleteSignup/CompleteSignup";
+import ConfirmPasswordModal from "../SignAndLog/ConfirmPassword/ConfirmPasswor";
 
-type Props = { userInfo: any };
+type Props = { userInfo: any; displayAlert: (msg: string) => void };
 
-function Footer({ userInfo }: Props) {
-  const [log, setLog] = React.useState<{
+function Footer({ userInfo, displayAlert }: Props) {
+  type logType = {
     login: boolean;
     signup: boolean;
-    emailPass?: boolean;
+    emailPass: boolean;
+    createAcc: boolean;
+    completeSignup: boolean;
+    confirmPassword: boolean;
     forgotPass?: boolean;
-  }>({
+  };
+
+  const [log, setLog] = React.useState<logType>({
     login: false,
     signup: false,
     emailPass: false,
     forgotPass: false,
+    createAcc: false,
+    completeSignup: false,
+    confirmPassword: false,
   });
 
-  const loginModal = () => setLog({ signup: false, login: true });
+  const { logFunctions, logs } = useAuth();
 
-  const signupModal = () => setLog({ login: false, signup: true });
+  useEffect(() => {
+    displayAlert("testing the alert");
+  }, []);
 
-  const closeLog = () => setLog({ login: false, signup: false });
+  const {
+    loginModal,
+    signupModal,
+    createAccModal,
+    toCompleteSignupModal,
+    toEmailPass,
+    closeLog,
+    toConfirmPasswordModal,
+  } = logFunctions;
 
   return (
     <>
       {!userInfo && (
         <>
-          {log.login && (
+          {logs.login && (
             <Login
-              open={log.login}
+              open={logs.login} /* this open attribute is for the modal tag */
               signupModal={signupModal}
               closeLog={closeLog}
+              toEmailPass={toEmailPass}
             />
           )}
-          {log.signup && (
+
+          {logs.signup && (
             <Signup
-              open={log.signup}
+              open={logs.signup} /* this open attribute is for the modal tag */
               closeLog={closeLog}
               loginModal={loginModal}
+              createAccModal={createAccModal}
+            />
+          )}
+
+          {logs.emailPass && (
+            <LoginWithEmail_Password
+              open={
+                logs.emailPass
+              } /* this open attribute is for the modal tag */
+              closeLog={closeLog}
+              signupModal={signupModal}
+            />
+          )}
+
+          {logs.createAcc && (
+            <CreateAccount
+              open={logs.createAcc}
+              closeLog={closeLog}
+              toCompleteSignupModal={toCompleteSignupModal}
+            />
+          )}
+
+          {logs.completeSignup && (
+            <CompleteSingup
+              open={logs.completeSignup}
+              closeLog={closeLog}
+              createAccModal={createAccModal}
+              toConfirmPasswordModal={toConfirmPasswordModal}
+            />
+          )}
+
+          {logs.confirmPassword && (
+            <ConfirmPasswordModal
+              open={logs.confirmPassword}
+              closeLog={closeLog}
+              createAccModal={createAccModal}
             />
           )}
 
           <StyledFooter>
-            <div className="footer_text">
-              <FooterHeader>Don&apos;t miss what&apos;s happening</FooterHeader>
-              <StyledPTag>People on Twitter are the first to know</StyledPTag>
-            </div>
+            <div className="center_div">
+              <div className="footer_text">
+                <FooterHeader>
+                  Don&apos;t miss what&apos;s happening
+                </FooterHeader>
+                <StyledPTag>People on Twitter are the first to know</StyledPTag>
+              </div>
 
-            <div className="footer_btns">
-              <SignButton
-                bg="none"
-                color="#fff"
-                borderColor="#ffffff44"
-                onClick={loginModal}
-              >
-                Log in
-              </SignButton>
-              <SignButton onClick={signupModal}>Sign up</SignButton>
+              <div className="footer_btns">
+                <ExtendedSignButton
+                  bg="none"
+                  color="#fff"
+                  borderColor="#ffffff44"
+                  maxScreenQuery="700"
+                  onClick={loginModal}
+                >
+                  Log in
+                </ExtendedSignButton>
+                <ExtendedSignButton onClick={signupModal} maxScreenQuery="700">
+                  Sign up
+                </ExtendedSignButton>
+              </div>
             </div>
           </StyledFooter>
         </>

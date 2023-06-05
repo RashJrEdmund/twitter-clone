@@ -15,6 +15,7 @@ const StyledSignWidget = styled.div`
   .inner_container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
     padding: 10px 15px;
     width: 100%;

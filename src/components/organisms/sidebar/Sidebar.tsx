@@ -14,12 +14,15 @@ import {
   CheckCircleIcon,
 } from "@heroicons/react/outline";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Logout from "@/components/organisms/SignAndLog/Logout/Logout";
 
 type Props = { userInfo: any };
 
 function Sidebar({ userInfo }: Props) {
   const currentUser: string = "clint";
+  const [logout, setLogout] = useState<boolean>(false);
+
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
       {/* Twitter Logo */}
@@ -62,7 +65,14 @@ function Sidebar({ userInfo }: Props) {
 
           {/* Mini-Profile */}
 
-          <div className="hoverEffect mb-7  text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
+          <div className="hoverEffect mb-7  text-gray-700 flex items-center justify-center xl:justify-start mt-auto relative">
+            {userInfo && logout && (
+              <Logout
+                userInfo={userInfo}
+                logoutStateVar={logout}
+                logoutStateFxn={setLogout}
+              />
+            )}
             <Image
               src={
                 "https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
@@ -71,12 +81,19 @@ function Sidebar({ userInfo }: Props) {
               height="50"
               alt="user-img"
               className="h-10 w-10 rounded-full xl:mr-2"
+              onClick={() => setLogout((prev) => !prev)}
             />
-            <div className="leading-5 hidden xl:inline">
+            <div
+              className="leading-5 hidden xl:inline"
+              onClick={() => setLogout((prev) => !prev)}
+            >
               <h4 className="font-bold">{userInfo?.displayname}</h4>
               <p className="text-gray-500">{userInfo?.email}</p>
             </div>
-            <DotsHorizontalIcon className="h-5 xl:ml-8 hidden xl:inline" />
+            <DotsHorizontalIcon
+              className="h-5 xl:ml-8 hidden xl:inline"
+              onClick={() => setLogout((prev) => !prev)}
+            />
           </div>
         </>
       ) : (
