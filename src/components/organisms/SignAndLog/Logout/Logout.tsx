@@ -17,6 +17,7 @@ const StyledLogout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start˝;
+  gap: 15px;
   justify-content: center;
   width: min(90vw, 300px);
   max-width: fit-content;
@@ -29,8 +30,9 @@ const StyledLogout = styled.div`
   }
 
   @media only screen and (max-width: 768px) {
+    top: calc(-100% - 50px);
     left: 0;
-    margin: 0 0 20px 0;
+    transform: translate(0);
   }
 `;
 
