@@ -1,9 +1,13 @@
 import React from "react";
-import { StyledPTag } from "@/components/atoms/LoginRegistAtoms";
+import { Overlay, StyledPTag } from "@/components/atoms/LoginRegistAtoms";
 import { useAuth } from "@/hooks/AuthContext";
 import styled from "@emotion/styled";
 
-type Props = { userInfo: any };
+type Props = {
+  userInfo: any;
+  logoutStateVar: boolean;
+  logoutStateFxn: (val: boolean) => void;
+};
 
 const StyledLogout = styled.div`
   cursor: default;
@@ -13,6 +17,7 @@ const StyledLogout = styled.div`
   transform: translate(-50%);
   background-color: #fff;
   border-radius: 10px;
+  z-index: 53;
 
   display: flex;
   flex-direction: column;
@@ -36,16 +41,27 @@ const StyledLogout = styled.div`
   }
 `;
 
-export default function Logout({ userInfo }: Props) {
+export default function Logout({
+  userInfo,
+  logoutStateVar,
+  logoutStateFxn,
+}: Props) {
   const { logout } = useAuth();
 
   return (
-    <StyledLogout>
-      <p color="#000">Add an existing account</p>
-      <p color="#000" onClick={logout}>
-        Log out @
-        {userInfo?.username || userInfo?.displayname.split(" ").pop() || "user"}
-      </p>
-    </StyledLogout>
+    <>
+      {logoutStateVar && (
+        <Overlay opacity="0" onClick={() => logoutStateFxn(false)} />
+      )}
+      <StyledLogout>
+        <p color="#000">Add an existing account</p>
+        <p color="#000" onClick={logout}>
+          Log out @
+          {userInfo?.username ||
+            userInfo?.displayname.split(" ").pop() ||
+            "user"}
+        </p>
+      </StyledLogout>
+    </>
   );
 }

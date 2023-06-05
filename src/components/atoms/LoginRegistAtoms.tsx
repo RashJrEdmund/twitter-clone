@@ -20,6 +20,7 @@ interface StyledProps {
   error?: boolean | any;
   align?: string;
   maxW?: boolean | string;
+  opacity?: string;
 }
 
 export const StyledHeader = styled.h2<StyledProps>`
@@ -60,12 +61,14 @@ export const StyledPTag = styled.p<StyledProps>`
 
 export const Overlay = styled.div<StyledProps>`
   background-color: #00000089;
+  opacity: ${({ opacity = "1" }) => opacity};
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   z-index: ${({ index = "51" }) => index};
+  cursor: default;
 `;
 
 /* THIS SECTIONS IS FOR ICON */

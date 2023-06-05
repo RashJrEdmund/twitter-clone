@@ -66,7 +66,13 @@ function Sidebar({ userInfo }: Props) {
           {/* Mini-Profile */}
 
           <div className="hoverEffect mb-7  text-gray-700 flex items-center justify-center xl:justify-start mt-auto relative">
-            {userInfo && logout && <Logout userInfo={userInfo} />}
+            {userInfo && logout && (
+              <Logout
+                userInfo={userInfo}
+                logoutStateVar={logout}
+                logoutStateFxn={setLogout}
+              />
+            )}
             <Image
               src={
                 "https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
@@ -84,7 +90,10 @@ function Sidebar({ userInfo }: Props) {
               <h4 className="font-bold">{userInfo?.displayname}</h4>
               <p className="text-gray-500">{userInfo?.email}</p>
             </div>
-            <DotsHorizontalIcon className="h-5 xl:ml-8 hidden xl:inline" />
+            <DotsHorizontalIcon
+              className="h-5 xl:ml-8 hidden xl:inline"
+              onClick={() => setLogout((prev) => !prev)}
+            />
           </div>
         </>
       ) : (
