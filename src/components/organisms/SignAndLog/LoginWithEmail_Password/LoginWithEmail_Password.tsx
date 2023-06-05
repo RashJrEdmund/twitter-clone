@@ -45,7 +45,7 @@ export default function LoginWithEmail_Password({
     if (log) setData(JSON.parse(log));
   }, []);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!password) return console.error("no password found");
@@ -54,7 +54,8 @@ export default function LoginWithEmail_Password({
 
     if (data.type === "email") {
       const formData = { email: data.detail, password, setLoader };
-      LoginWithEmailPassword(formData);
+      await LoginWithEmailPassword(formData);
+      closeLog();
     } else setLoader({ loading: false, message: "could_not_login" });
   };
 
@@ -95,7 +96,7 @@ export default function LoginWithEmail_Password({
           </AnchorTag>
         )}
 
-        {loader.message === "could_not_login" && (
+        {loader.message === "could_not_login//remove_this_part" && (
           <p style={{ color: "red" }}>incorrect {data.type} or password</p>
         )}
 

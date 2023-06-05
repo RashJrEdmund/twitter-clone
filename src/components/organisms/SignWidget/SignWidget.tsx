@@ -12,7 +12,8 @@ import { useAuth } from "@/hooks/AuthContext";
 type Props = {};
 
 export default function SignWidget({}: Props) {
-  const { googleLogin } = useAuth();
+  const { googleLogin, logFunctions } = useAuth();
+  const { signupModal } = logFunctions;
 
   return (
     <StyledSignWidget>
@@ -31,7 +32,7 @@ export default function SignWidget({}: Props) {
           </span>
           Sign up with Apple
         </SignButton>
-        <SignButton padd="10px 70px" fill>
+        <SignButton padd="10px 70px" fill onClick={signupModal}>
           Create account
         </SignButton>
 
