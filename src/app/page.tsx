@@ -2,6 +2,7 @@
 
 import AuthGaurd from "@/HOC/AuthGaurd";
 import Footer from "@/components/organisms/Footer/Footer";
+import CommentModal from "@/components/organisms/ModalComponent/CommentModal";
 import Feed_section from "@/components/organisms/feed/Feed";
 import Sidebar from "@/components/organisms/sidebar/Sidebar";
 import Widget from "@/components/organisms/widget/Widget";
@@ -21,8 +22,9 @@ function Home({ userInfo, displayAlert }: Props) {
         </div>
         <Feed_section userInfo={userInfo} />
         <Widget userInfo={userInfo} />
-
         <Footer userInfo={userInfo} displayAlert={displayAlert} />
+
+        <CommentModal userInfo={userInfo} />
       </div>
     </AuthContextProvider>
   );
