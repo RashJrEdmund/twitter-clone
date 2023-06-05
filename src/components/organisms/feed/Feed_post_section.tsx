@@ -28,6 +28,7 @@ type Props = { post: any; userInfo: any };
 export default function Feed_post_section({ post, userInfo }: Props) {
   const [likes, setLikes] = useState<any>([]);
   const [liked, setLiked] = useState<Boolean>(false);
+  const [comments, setComments] = useState<any>([]);
   const [open, setOpen] = useRecoilState<any>(modalState);
   const [postId, setPostId] = useRecoilState<any>(postIdState);
   /* like a tweet */
@@ -37,6 +38,15 @@ export default function Feed_post_section({ post, userInfo }: Props) {
       (snapshot) => setLikes(snapshot.docs)
     );
   }, [post.id]);
+
+  /* COMMENT a tweet*/
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "tweet", post.id, "comments"),
+      (snapshot) => setComments(snapshot.docs)
+    );
+  }, [db]);
 
   /* remove like or add if exists or not */
   useEffect(() => {
@@ -59,6 +69,8 @@ export default function Feed_post_section({ post, userInfo }: Props) {
     }
   }
 
+
+
   // deletePost function
 
   function deletePost() {
@@ -80,7 +92,7 @@ export default function Feed_post_section({ post, userInfo }: Props) {
           className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer mr-4"
         />
       )}
-      <div className="">
+      <div className="flex-1">
         {/* right- side */}
         <div className="w-full">
           {/*header  */}
@@ -96,7 +108,7 @@ export default function Feed_post_section({ post, userInfo }: Props) {
                   @{post.data().name} -{" "}
                 </span>
                 <span className="text-sm sm:text-[15px] hover:underline text-gray-500">
-                  <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
+                  <Moment fromNow>{post?.data()?.timestamp?.toDate()}</Moment>
                 </span>
               </div>
 
@@ -117,7 +129,9 @@ export default function Feed_post_section({ post, userInfo }: Props) {
               />
             )}
             {/* icons */}
-            <div className="flex items-center justify-between text-gray-500 p-2">
+             <div className="flex items-center justify-between text-gray-500 p-2">
+              <div className="flex items-center
+              ">
               <ChatIcon
                 onClick={() => {
                   if (userInfo) {
@@ -127,6 +141,13 @@ export default function Feed_post_section({ post, userInfo }: Props) {
                 }}
                 className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full"
               />
+              {comments.length > 0 && (
+                  <span className={`${comments && "text-sky-600"} `}>
+                    {comments.length}
+                  </span>
+                )}
+              </div>
+              
               {post.data().id === userInfo?.uid && (
                 <TrashIcon
                   onClick={deletePost}
