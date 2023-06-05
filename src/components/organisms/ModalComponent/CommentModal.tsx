@@ -5,7 +5,7 @@ import { modalState, postIdState } from "../../../../Atoms/AtomsModal";
 import Modal from "react-modal";
 import { XIcon } from "@heroicons/react/solid";
 import { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { db } from "@/configs/firebase";
 import Moment from "react-moment";
 import {
@@ -13,6 +13,7 @@ import {
   GiftIcon,
   PhotographIcon,
 } from "@heroicons/react/outline";
+import { useRouter } from "next/navigation";
 
 type Props = { userInfo: any };
 
@@ -22,18 +23,31 @@ const CommentModal = ({ userInfo }: Props) => {
   const [input, setInput] = useState<string>("");
   const [post, setPost] = useState<any>({});
 
+  const router = useRouter()
+
   //getting information from firestore for comment part
   useEffect(() => {
     onSnapshot(doc(db, "tweet", postId), (snapshot) => {
       setPost(snapshot);
     });
   }, [postId, db]);
-
+  
   console.log(userInfo?.photoURL);
 
+  async function sendComment() {
+    await addDoc(collection(db, "tweet", postId, "comments"), {
+      comment: input,
+      userImg: userInfo.photoURL,
+      name: userInfo?.displayname,
+      email: userInfo?.email,
+      timestamp: serverTimestamp()
+    });
+    setOpen(false);
+    setInput("");
 
 
-  function sendComment() {}
+    router.push(`tweet/${postId}`)
+  }
 
   return (
     <div>
@@ -71,10 +85,13 @@ const CommentModal = ({ userInfo }: Props) => {
                 @{post?.data()?.name} -{" "}
               </span>
               <span className="text-sm sm:text-[15px] hover:underline text-gray-500">
-                <Moment fromNow>{post?.data().timestamp?.toDate()}</Moment>
+                <Moment fromNow>{post?.data()?.timestamp?.toDate()}</Moment>
               </span>
             </div>
-            <p className="text-gray-500 text-[15px]  sm:text-[16px] ml-16 mb-2">{post?.data()?.text}</p>
+    {/*         <p className="ml-16">Replying to <span className="text-sky-500">{post?.data()?.userName}</span></p> */}
+            <p className="text-gray-500 text-[15px]  sm:text-[16px] ml-16 mb-2">
+              {post?.data()?.text}
+            </p>
             <div className={`flex p-3 space-x-3 `}>
               <img
                 src={userInfo?.photoURL}
