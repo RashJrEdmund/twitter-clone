@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import { FaTwitter, FaApple } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
@@ -16,6 +17,10 @@ interface StyledProps {
   index?: string;
   margin?: string;
   loading?: boolean;
+  error?: boolean | any;
+  align?: string;
+  maxW?: boolean | string;
+  opacity?: string;
 }
 
 export const StyledHeader = styled.h2<StyledProps>`
@@ -24,6 +29,7 @@ export const StyledHeader = styled.h2<StyledProps>`
   font-weight: ${({ weight = "600" }) => weight};
   width: 100%;
   margin: ${({ margin = "unset" }) => margin};
+  text-align: ${({ align = "unset" }) => align};
 `;
 
 export const FooterHeader = styled.h2<StyledProps>`
@@ -39,26 +45,30 @@ export const SignInput = styled.input<StyledProps>`
   color: ${({ color = "#000" }) => color};
   width: 100%;
   height: 60px;
-  border: 1px solid #80808054;
+  border: ${({ error }) => (error ? "1px solid red" : "1px solid #80808054")};
   border-radius: 4px;
   padding: 10px;
   transition: 0.3s opacity;
-  max-width: var(--Styled-btn-max-width);
+  max-width: ${({ maxW = false }) => maxW || css`var(--Styled-btn-max-width)`};
 `;
 
 export const StyledPTag = styled.p<StyledProps>`
-  color: #fff;
-  width: fit-content;
+  color: ${({ color = "#fff" }) => color};
+  font-weight: ${({ weight = "unset" }) => weight};
+  text-align: ${({ align = "unset" }) => align};
+  width: ${({ fill = false }) => (fill ? "100%" : "fit-content")};
 `;
 
 export const Overlay = styled.div<StyledProps>`
   background-color: #00000089;
+  opacity: ${({ opacity = "1" }) => opacity};
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   z-index: ${({ index = "51" }) => index};
+  cursor: default;
 `;
 
 /* THIS SECTIONS IS FOR ICON */
