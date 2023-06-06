@@ -19,12 +19,14 @@ import { GiftIcon } from "@heroicons/react/solid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Input_feed_section({ userInfo }: Props) {
   const [input, setInput] = useState<string>("");
   const filepick = useRef<any>(null);
   const [isLoading, setIsLoading] = useState<any>(false);
   const [selectedFile, setSelectedFile] = useState<any>(null);
+  const router = useRouter();
 
   const sendPost = async () => {
     if (isLoading) return;
@@ -53,6 +55,7 @@ function Input_feed_section({ userInfo }: Props) {
       });
       console.log(docRef, input);
     }
+    router.push('/');
     /*     const uploadTask = uploadBytesResumable(imageRef, selectedFile);
     uploadTask.on(
       "state_changed",
@@ -85,10 +88,11 @@ function Input_feed_section({ userInfo }: Props) {
   };
 
   return (
+
     <div
       className={`flex border-b border-gray-200 p-3 space-x-3 ${
         isLoading && "animate-pulse"
-      } `}
+      }`}
     >
       <img
         src={userInfo?.photoURL}
