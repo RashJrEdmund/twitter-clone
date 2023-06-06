@@ -109,11 +109,11 @@ export default function ConfirmPasswordModal({
 
         <StyledTwitterIcon />
 
+        {loading && <p>loading...</p>}
+
         <StyledHeader color="#000" weight="600" size="30px" align="left">
           Create your account
         </StyledHeader>
-
-        {loading && <p>loading...</p>}
 
         <SignInput
           placeholder="password"
