@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import Image from "next/image";
 import SidebarMenuItem from "./SidebarMenuItem";
@@ -73,10 +74,8 @@ function Sidebar({ userInfo }: Props) {
                 logoutStateFxn={setLogout}
               />
             )}
-            <Image
-              src={
-                "https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
-              }
+            <img
+              src={userInfo?.photoURL}
               width="50"
               height="50"
               alt="user-img"

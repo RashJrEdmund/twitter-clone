@@ -13,7 +13,6 @@ type Props = { userInfo: any; displayAlert: (msg: string) => void };
 console.log();
 
 function Home({ userInfo, displayAlert }: Props) {
-
   return (
     <AuthContextProvider>
       <div className="flex min-h-screen max-w-10xl mx-auto justify-center">
