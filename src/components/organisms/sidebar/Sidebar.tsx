@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import Image from "next/image";
 import SidebarMenuItem from "./SidebarMenuItem";
@@ -74,6 +75,7 @@ function Sidebar({ userInfo }: Props) {
               />
             )}
             <Image
+
               src={userInfo?.photoURL}
               width="50"
               height="50"
