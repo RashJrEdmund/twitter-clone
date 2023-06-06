@@ -1,15 +1,20 @@
 import { SparklesIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/navigation";
 import NewTweetButton from "./StyledNewTweetButton";
 type Props = {};
 
 export default function NewTweetMobile({ }: Props) {
+    const router =  useRouter();
      const svgStyle = {
          marginLeft: '330px' ,
          color: "white"
      }
+     const handleClick = () => {
+        router.push("/tweet")
+     }
 
     return (
-        <div className="newTweetMobile">
+        <div className="newTweetMobile" onClick={handleClick}>
         <div style={svgStyle} className="fixed bg-blue-400 w-16 h-16 rounded-full mb-1 bottom-20  flex z-50  ml-72 float-right svgStyle phone:hidden">
             <svg viewBox="0 0 24 24" aria-hidden="true" className="h-10  ml-5 mt-4  w-7  ">
                 <g>
@@ -18,6 +23,7 @@ export default function NewTweetMobile({ }: Props) {
                 </g>
             </svg>
         </div>
+
         </div>
     );
 }

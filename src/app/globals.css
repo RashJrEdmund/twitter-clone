@@ -46,6 +46,12 @@ a {
   color: unset;
 }
 
+.sideMobileNav {
+  background: white;
+  width: 500px;
+  z-index: 99999;
+}
+
 @media (max-width: 430px) { 
   .newPostDiv,
   .homeHeader {
