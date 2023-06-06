@@ -142,7 +142,7 @@ export default function Feed_post_section({ post, userInfo }: Props) {
                 className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full"
               />
               {comments.length > 0 && (
-                  <span className={`${comments && "text-sky-600"} `}>
+                  <span className={`text-sm`}>
                     {comments.length}
                   </span>
                 )}

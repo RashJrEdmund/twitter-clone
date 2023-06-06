@@ -51,7 +51,6 @@ const CommentModal = ({ userInfo }: Props) => {
 
   return (
     <div>
-      <h1>cool</h1>
       {open && (
         <Modal
           isOpen={open}
