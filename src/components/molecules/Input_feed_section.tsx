@@ -34,7 +34,7 @@ function Input_feed_section({ userInfo }: Props) {
     const docRef = await addDoc(collection(db, "tweet"), {
       id: userInfo?.uid,
       text: input,
-      /*       name: userInfo?.name, */
+      name: userInfo?.username,
       userImg: userInfo.photoURL,
       userName: userInfo?.displayname,
       email: userInfo?.email,

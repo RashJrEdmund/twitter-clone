@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import Image from "next/image";
 import SidebarMenuItem from "./SidebarMenuItem";
@@ -20,14 +19,14 @@ import Logout from "@/components/organisms/SignAndLog/Logout/Logout";
 
 type Props = { userInfo: any };
 
-function Sidebar({ userInfo }: Props) {
+function MobileSideBar({ userInfo }: Props) {
   const currentUser: string = "clint";
   const [logout, setLogout] = useState<boolean>(false);
 
   return (
-    <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
+    <div className="sideMobileNav">
       {/* Twitter Logo */}
-      <div className="hoverEffect p-0 hover:bg-blue-100 xl:px-1">
+      <div className="hoverEffect p-0 hover:bg-blue-100">
         <Image
           alt=" "
           width="50"
@@ -104,4 +103,4 @@ function Sidebar({ userInfo }: Props) {
   );
 }
 
-export default Sidebar;
+export default MobileSideBar;
