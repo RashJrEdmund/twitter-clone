@@ -85,8 +85,8 @@ function Sidebar({ userInfo }: Props) {
               className="leading-5 hidden xl:inline"
               onClick={() => setLogout((prev) => !prev)}
             >
-              <h4 className="font-bold">{userInfo?.displayname}</h4>
-              <p className="text-gray-500">{userInfo?.email}</p>
+              <h4 className="font-bold w-32 truncate ">{userInfo?.displayname}</h4>
+              <p className="text-gray-500 w-32  truncate ">{userInfo?.email}</p>
             </div>
             <DotsHorizontalIcon
               className="h-5 xl:ml-8 hidden xl:inline"

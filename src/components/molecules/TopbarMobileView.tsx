@@ -7,7 +7,7 @@ export default function TopbarMobileView({ userInfo }: Props) {
   return (
     <div className="topNavMobile">
     <div className="flex border-gray-200 p-3 space-x-3">
-     {userInfo ? <img
+     {userInfo?.uid? <img
         src={userInfo?.photoURL}
         alt="tell"
         className="h-11  w-11 rounded-full hover:brightness-95 cursor-pointer mr-2"

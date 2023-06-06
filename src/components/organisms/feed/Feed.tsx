@@ -55,7 +55,7 @@ function Feed_section({ userInfo }: Props) {
           {posts.map((post: any) => (
             <Feed_post_section userInfo={userInfo} key={post.id} post={post} />
           ))}  
-          { userInfo ?              
+          { userInfo?.uid?              
        <NewTweetMobile/> : <div /> }
       <BottomBarMobileView />
         </div>
