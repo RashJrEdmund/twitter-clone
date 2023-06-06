@@ -54,8 +54,9 @@ function Feed_section({ userInfo }: Props) {
          <Feed_header />
           {posts.map((post: any) => (
             <Feed_post_section userInfo={userInfo} key={post.id} post={post} />
-          ))}               
-       <NewTweetMobile />
+          ))}  
+          { userInfo ?              
+       <NewTweetMobile/> : <div /> }
       <BottomBarMobileView />
         </div>
       )}
