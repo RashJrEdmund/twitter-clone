@@ -50,13 +50,13 @@ function Feed_section({ userInfo }: Props) {
         </div>
       ) : (
         <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
-          {/* <TopbarMobileView /> */}
+         <TopbarMobileView userInfo={userInfo} />
          <Feed_header />
           {posts.map((post: any) => (
             <Feed_post_section userInfo={userInfo} key={post.id} post={post} />
-          ))}
-{/*                 <NewTweetMobile />
-      <BottomBarMobileView /> */}
+          ))}               
+       <NewTweetMobile />
+      <BottomBarMobileView />
         </div>
       )}
     </>
