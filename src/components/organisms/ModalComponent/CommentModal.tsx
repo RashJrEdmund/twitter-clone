@@ -46,7 +46,7 @@ const CommentModal = ({ userInfo }: Props) => {
     setInput("");
 
 
-    router.push(`tweet/${postId}`)
+/*     router.push(`tweet/${postId}`) */
   }
 
   return (
