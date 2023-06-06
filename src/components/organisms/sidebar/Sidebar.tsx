@@ -74,9 +74,7 @@ function Sidebar({ userInfo }: Props) {
               />
             )}
             <Image
-              src={
-                "https://pbs.twimg.com/profile_images/1602579156574814209/CypHsydl_400x400.png"
-              }
+              src={userInfo?.photoURL}
               width="50"
               height="50"
               alt="user-img"
