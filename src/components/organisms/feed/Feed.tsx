@@ -28,8 +28,11 @@ function Feed_section({ userInfo }: Props) {
     <div className="py-24">
       {userInfo?.uid ? (
         <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+          <TopbarMobileView userInfo={userInfo} />
           <Feed_header />
+          <div className="newPostDiv">
           <Input_feed_section />
+          </div>
           <AnimatePresence>
             {posts.map((post: any) => (
               <motion.div
@@ -47,16 +50,18 @@ function Feed_section({ userInfo }: Props) {
               </motion.div>
             ))}
           </AnimatePresence>
+          { userInfo?.uid?              
+       <NewTweetMobile/> : <div /> }
+      <BottomBarMobileView />
         </div>
       ) : (
         <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
-          {/* <TopbarMobileView /> */}
+         
          <Feed_header />
           {posts.map((post: any) => (
             <Feed_post_section userInfo={userInfo} key={post.id} post={post} />
-          ))}
-{/*                 <NewTweetMobile />
-      <BottomBarMobileView /> */}
+          ))}  
+          
         </div>
       )}
     </div>
