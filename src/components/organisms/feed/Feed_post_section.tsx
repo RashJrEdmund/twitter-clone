@@ -65,11 +65,8 @@ export default function Feed_post_section({ post, userInfo }: Props) {
           userName: userInfo.displayname,
         });
       }
-    } else {
     }
   }
-
-
 
   // deletePost function
 
@@ -129,25 +126,25 @@ export default function Feed_post_section({ post, userInfo }: Props) {
               />
             )}
             {/* icons */}
-             <div className="flex items-center justify-between text-gray-500 p-2">
-              <div className="flex items-center
-              ">
-              <ChatIcon
-                onClick={() => {
-                  if (userInfo) {
-                    setPostId(post.id);
-                    setOpen(!open);
-                  }
-                }}
-                className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full"
-              />
-              {comments.length > 0 && (
-                  <span className={`text-sm`}>
-                    {comments.length}
-                  </span>
+            <div className="flex items-center justify-between text-gray-500 p-2">
+              <div
+                className="flex items-center
+              "
+              >
+                <ChatIcon
+                  onClick={() => {
+                    if (userInfo) {
+                      setPostId(post.id);
+                      setOpen(!open);
+                    }
+                  }}
+                  className="h-9 w-9 hoverEffect p-2 hover:bg-sky-100 hover:text-sky-500 rounded-full"
+                />
+                {comments.length > 0 && (
+                  <span className={`text-sm`}>{comments.length}</span>
                 )}
               </div>
-              
+
               {post.data().id === userInfo?.uid && (
                 <TrashIcon
                   onClick={deletePost}

@@ -25,13 +25,13 @@ function Feed_section({ userInfo }: Props) {
   }, []);
 
   return (
-    <div className = "pb-24">
+    <>
       {userInfo?.uid ? (
-        <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+        <div className="pb-24 xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
           <TopbarMobileView userInfo={userInfo} />
           <Feed_header />
           <div className="newPostDiv">
-          <Input_feed_section />
+            <Input_feed_section />
           </div>
           <AnimatePresence>
             {posts.map((post: any) => (
@@ -50,23 +50,19 @@ function Feed_section({ userInfo }: Props) {
               </motion.div>
             ))}
           </AnimatePresence>
-          { userInfo?.uid?              
-       <NewTweetMobile/> : <div /> }
-      <BottomBarMobileView />
+          {userInfo?.uid ? <NewTweetMobile /> : <div />}
+          <BottomBarMobileView />
         </div>
       ) : (
         <div className="xl:ml-[350px] border-l border-r border-gray-200 xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
-         
-         <Feed_header />
+          <Feed_header />
           {posts.map((post: any) => (
             <Feed_post_section userInfo={userInfo} key={post.id} post={post} />
-          ))}  
-          
+          ))}
         </div>
       )}
-    </div>
+    </>
   );
-
 }
 
 export default Feed_section;

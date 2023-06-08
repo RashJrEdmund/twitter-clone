@@ -21,15 +21,15 @@ body {
   border-top: 16px solid #198ad5;
   border-radius: 50%;
   width: 140px;
-  height: 140px;
+  height: 100px;
   animation: spin 3s linear infinite;
 }
 
 .loader_title {
   color: #e3e3e3;
   position: absolute;
-  font-size: 37px;
-  top: 415px;
+  font-size: 40px;
+  top: 350px;
 }
 
 @keyframes spin {
