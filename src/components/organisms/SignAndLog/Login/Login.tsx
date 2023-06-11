@@ -31,31 +31,34 @@ export default function Login({
 }: Props) {
   const { googleLogin } = useAuth();
   const [inputVal, setInputVal] = React.useState<string>("");
-  const emailReg = /\w{2}[@]\w{3,5}[.]/;
+  const [formErr, setFormErr] = React.useState<boolean>(false);
+  const emailReg = /\w{2}[@]\w{3,15}[.]/;
   const phoneReg = /\d{2}/;
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
     if (!inputVal.trim() || !/\w/.test(inputVal)) {
-      console.log("no value found");
+      setFormErr(true);
       return;
     }
 
     if (emailReg.test(inputVal)) {
-      console.log("email found", inputVal);
       const data = { type: "email", detail: inputVal };
       sessionStorage.setItem("log", JSON.stringify(data));
     } else if (phoneReg.test(inputVal)) {
-      console.log("phonenumber found", inputVal);
       const data = { type: "phone", detail: inputVal };
       sessionStorage.setItem("log", JSON.stringify(data));
     } else {
-      console.log("username detected", inputVal);
       const data = { type: "username", detail: inputVal };
       sessionStorage.setItem("log", JSON.stringify(data));
     }
     toEmailPass();
+  };
+
+  const handleInputField = ({ target: { value } }: any) => {
+    setInputVal(value);
+    if (formErr) setFormErr(false);
   };
 
   return (
@@ -99,7 +102,8 @@ export default function Login({
         <SignInput
           placeholder="Phone, email address or username"
           value={inputVal}
-          onChange={({ target: { value } }) => setInputVal(value)}
+          error={formErr}
+          onChange={handleInputField}
         />
 
         <SignButton color="#fff" bg="#000" padd="9px 70px" fill type="submit">

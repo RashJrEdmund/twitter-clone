@@ -76,7 +76,7 @@ export default function CreateAccount({
 
     if (signType === "email") {
       if (!formData.name.trim() || !formData[signType].trim())
-        return console.warn("missing user info");
+        return;
 
       sessionStorage.setItem("signData", JSON.stringify(formData));
       toCompleteSignupModal();

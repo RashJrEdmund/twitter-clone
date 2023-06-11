@@ -12,6 +12,7 @@ import CreateAccount from "../SignAndLog/CreateAccount/CreateAccount";
 import { useAuth } from "@/hooks/AuthContext";
 import CompleteSingup from "../SignAndLog/CompleteSignup/CompleteSignup";
 import ConfirmPasswordModal from "../SignAndLog/ConfirmPassword/ConfirmPasswor";
+import ForgotPassowrd from "../SignAndLog/ForgotPassword/ForgotPassword";
 
 type Props = { userInfo: any; displayAlert: (msg: string) => void };
 
@@ -50,6 +51,7 @@ function Footer({ userInfo, displayAlert }: Props) {
     toEmailPass,
     closeLog,
     toConfirmPasswordModal,
+    toForgotPassword,
   } = logFunctions;
 
   return (
@@ -80,7 +82,7 @@ function Footer({ userInfo, displayAlert }: Props) {
                 logs.emailPass
               } /* this open attribute is for the modal tag */
               closeLog={closeLog}
-              signupModal={signupModal}
+              toForgotPassword={toForgotPassword}
             />
           )}
 
@@ -106,6 +108,14 @@ function Footer({ userInfo, displayAlert }: Props) {
               open={logs.confirmPassword}
               closeLog={closeLog}
               createAccModal={createAccModal}
+            />
+          )}
+
+          {logs.forgotPass && (
+            <ForgotPassowrd
+              open={logs.forgotPass}
+              closeLog={closeLog}
+              loginModal={loginModal}
             />
           )}
 

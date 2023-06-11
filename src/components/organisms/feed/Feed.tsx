@@ -4,9 +4,7 @@ import Feed_post_section from "./Feed_post_section";
 
 type Props = { userInfo: any };
 
-function Feed_section({ userInfo }: Props) {
-  console.log(userInfo);
-  
+function Feed_section({ userInfo }: Props) {  
   const posts = [
     {
       id: "1",
