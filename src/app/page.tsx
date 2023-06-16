@@ -10,7 +10,6 @@ import { AuthContextProvider } from "@/hooks/AuthContext";
 import { useEffect } from "react";
 
 type Props = { userInfo: any; displayAlert: (msg: string) => void };
-console.log();
 
 function Home({ userInfo, displayAlert }: Props) {
   return (

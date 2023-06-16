@@ -30,7 +30,7 @@ type logType = {
   createAcc: boolean;
   completeSignup: boolean;
   confirmPassword: boolean;
-  forgotPass?: boolean;
+  forgotPass: boolean;
 };
 
 export const useAuth: any = () => useContext(AuthContext);
@@ -78,6 +78,7 @@ export function AuthContextProvider({ children }: reactType) {
         createAcc: false,
         completeSignup: false,
         confirmPassword: false,
+        forgotPass: false,
         login: true,
       }),
 
@@ -88,6 +89,7 @@ export function AuthContextProvider({ children }: reactType) {
         createAcc: false,
         completeSignup: false,
         confirmPassword: false,
+        forgotPass: false,
         signup: true,
       }),
 
@@ -98,6 +100,7 @@ export function AuthContextProvider({ children }: reactType) {
         signup: false,
         completeSignup: false,
         confirmPassword: false,
+        forgotPass: false,
         createAcc: true,
       }),
 
@@ -108,6 +111,7 @@ export function AuthContextProvider({ children }: reactType) {
         signup: false,
         createAcc: false,
         confirmPassword: false,
+        forgotPass: false,
         completeSignup: true,
       }),
 
@@ -118,7 +122,19 @@ export function AuthContextProvider({ children }: reactType) {
         signup: false,
         createAcc: false,
         completeSignup: false,
+        forgotPass: false,
         confirmPassword: true,
+      }),
+
+    toForgotPassword: () =>
+      setLogs({
+        login: false,
+        emailPass: false,
+        signup: false,
+        createAcc: false,
+        completeSignup: false,
+        confirmPassword: false,
+        forgotPass: true,
       }),
 
     toEmailPass: () =>
@@ -128,6 +144,7 @@ export function AuthContextProvider({ children }: reactType) {
         createAcc: false,
         completeSignup: false,
         confirmPassword: false,
+        forgotPass: false,
         emailPass: true,
       }),
 
@@ -140,6 +157,7 @@ export function AuthContextProvider({ children }: reactType) {
         createAcc: false,
         completeSignup: false,
         confirmPassword: false,
+        forgotPass: false,
         emailPass: false,
       });
     },
@@ -162,7 +180,7 @@ export function AuthContextProvider({ children }: reactType) {
 
     await signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        console.log("email password signup res", res);
+        // console.log("email password signup res", res);
       })
       .catch((e) => console.log("this error", e)) // takes 3 parameters auth eamil and password
       .finally(

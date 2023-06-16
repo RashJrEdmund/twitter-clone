@@ -43,6 +43,7 @@ export default function ConfirmPasswordModal({
   });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [formErr, setFormErr] = useState<boolean>(false);
 
   const [signType, setSignType] = useState<string>("phone");
 
@@ -75,7 +76,14 @@ export default function ConfirmPasswordModal({
     e.preventDefault();
     checkSession();
 
-    if (pass.confirm !== pass.password) return;
+    if (
+      !pass.confirm.trim() ||
+      !pass.password.trim() ||
+      pass.confirm !== pass.password ||
+      pass.confirm.length < 6 ||
+      pass.password.length < 6
+    )
+      return setFormErr(true);
 
     if (formData.email) {
       setLoading(true);
@@ -100,6 +108,16 @@ export default function ConfirmPasswordModal({
     createAccModal();
   };
 
+  const handlePasswordField = ({ target: { value } }: any) => {
+    setPass((prev) => ({ ...prev, password: value }));
+    if (formErr) setFormErr(false);
+  };
+
+  const handleConfirmField = ({ target: { value } }: any) => {
+    setPass((prev) => ({ ...prev, confirm: value }));
+    if (formErr) setFormErr(false);
+  };
+
   return (
     <StyledSingIn_Login open={open}>
       <Overlay />
@@ -117,21 +135,21 @@ export default function ConfirmPasswordModal({
 
         <SignInput
           placeholder="password"
+          type="password"
           maxW="unset"
+          minLength={6}
           value={pass.password}
-          onChange={({ target: { value } }) =>
-            setPass((prev) => ({ ...prev, password: value }))
-          }
+          onChange={handlePasswordField}
         />
 
         <SignInput
           placeholder="confirm password"
           maxW="unset"
+          type="password"
+          minLength={6}
           value={pass.confirm}
-          error={pass.confirm && pass.password !== pass.confirm}
-          onChange={({ target: { value } }) =>
-            setPass((prev) => ({ ...prev, confirm: value }))
-          }
+          error={formErr}
+          onChange={handleConfirmField}
         />
 
         <div className="complete_paragraph">

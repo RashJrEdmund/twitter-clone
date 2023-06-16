@@ -16,21 +16,19 @@ import { useAuth } from "@/hooks/AuthContext";
 type Props = {
   open: boolean;
   closeLog: () => void;
-  signupModal: () => void;
+  toForgotPassword: () => void;
 };
 
 export default function LoginWithEmail_Password({
   open,
   closeLog,
-  signupModal,
+  toForgotPassword,
 }: Props) {
-  const {
-    LoginWithEmailPassword,
-    logFunctions: { loginModal },
-  } = useAuth();
+  const { LoginWithEmailPassword } = useAuth();
 
   const [data, setData] = useState<any>({});
   const [password, setPassword] = useState<string>("");
+  const [formErr, setFormErr] = useState<boolean>(false);
   const [loader, setLoader] = useState<{ loading: boolean; message: string }>({
     loading: false,
     message: "",
@@ -48,7 +46,7 @@ export default function LoginWithEmail_Password({
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (!password) return console.error("no password found");
+    if (!password.trim() || password.length < 6) return setFormErr(true);
 
     setLoader({ loading: true, message: "" });
 
@@ -60,7 +58,12 @@ export default function LoginWithEmail_Password({
   };
 
   const handleForgotPass = () => {
-    loginModal();
+    toForgotPassword();
+  };
+
+  const handleInput = ({ target: { value } }: any) => {
+    setPassword(value);
+    if (formErr) setFormErr(false);
   };
 
   return (
@@ -101,10 +104,12 @@ export default function LoginWithEmail_Password({
         )}
 
         <SignInput
-          // placeholder="Phone, email address or username"
+          minLength={6}
+          type="password"
           placeholder="password"
           maxW="unset"
-          onChange={({ target: { value } }: any) => setPassword(value)}
+          error={formErr}
+          onChange={handleInput}
         />
 
         <AnchorTag link fill align="left" onClick={handleForgotPass}>
